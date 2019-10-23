@@ -1,17 +1,10 @@
 package edu.cmu.bigbowl.Dao;
 
 import edu.cmu.bigbowl.Entity.Account;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 
-public interface AccountDao {
-    Collection<Account> getAllAccounts();
-
-    Account getAccountById(int id);
-
-    void removeAccountById(int id);
-
-    Account updateAccount(Account account);
-
-    void insertAccountToDb(Account account);
+@Repository
+public interface AccountDao extends MongoRepository<Account, String> {
 }

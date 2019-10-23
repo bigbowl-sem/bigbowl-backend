@@ -1,24 +1,12 @@
 package edu.cmu.bigbowl.Exception;
 
-public class EntityNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-    public EntityNotFoundException() {
-        super();
-    }
+@ResponseStatus(value= HttpStatus.NOT_FOUND, reason="Account Not Found") //404
+public class AccountNotFoundException extends Exception {
 
-    public EntityNotFoundException(String message) {
-        super(message);
-    }
-
-    public EntityNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public EntityNotFoundException(Throwable cause) {
-        super(cause);
-    }
-
-    protected EntityNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public AccountNotFoundException(String id){
+        super("EmployeeNotFoundException with id="+id);
     }
 }
