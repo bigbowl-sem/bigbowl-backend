@@ -2,11 +2,16 @@ package edu.cmu.bigbowl.Service;
 
 import edu.cmu.bigbowl.Dao.CookDao;
 import edu.cmu.bigbowl.Entity.Cook;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
+import org.springframework.data.geo.Distance;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class CookService {
@@ -18,6 +23,42 @@ public class CookService {
     public Cook postCook(Cook cook) {
         return cookDao.save(cook);
     }
+    public void postFakeCook() {
+        Integer numOfCook = 50;
+        Double latMin, latMax, lngMin, lngMax, ratingMin, ratingMax;
+        latMin = 37.376202;
+        latMax = 37.426854;
+        lngMin = -122.101392;
+        lngMax = -122.068942;
+        ratingMin = 0.0;
+        ratingMax = 5.0;
+        /*
+        if (fakeCookGen.get("num") != null) {
+            numOfCook = fakeCookGen.getAsNumber("num").intValue();
+        }
+        if (fakeCookGen.get("lat") != null) {
+            lat = fakeCookGen.getAsNumber("lat").doubleValue();
+        }
+        if (fakeCookGen.get("lng") != null) {
+            lng = fakeCookGen.getAsNumber("lng").doubleValue();
+        }
+        if (fakeCookGen.get("radius") != null) {
+            radius = fakeCookGen.getAsNumber("radius").doubleValue();
+        }
+        */
+
+        for (Integer cnt = 0; cnt < numOfCook; cnt += 1)
+        {
+            Random r = new Random();
+            Double latValue = latMin + (latMax - latMin) * r.nextDouble();
+            Double lngValue = lngMin + (lngMax - lngMin) * r.nextDouble();
+            Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
+            Cook cook = new Cook( "Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue);
+            cookDao.save(cook);
+        }
+
+        return;
+    }
 
     // Read
     public Collection<Cook> getAllCooks() {
@@ -26,6 +67,10 @@ public class CookService {
 
     public Optional<Cook> getCookById(String id) {
         return cookDao.findById(id);
+    }
+
+    public List<Cook> getCookByPoint(Point point, Distance distance) {
+        return cookDao.findByLocationNear(point, distance);
     }
 
     // Update
