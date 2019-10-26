@@ -1,9 +1,13 @@
 package edu.cmu.bigbowl.Entity;
 
+import com.mongodb.client.model.geojson.GeoJsonObjectType;
+import com.mongodb.client.model.geojson.Point;
+import net.minidev.json.JSONObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "cook")
@@ -27,7 +31,7 @@ public class Cook {
     @Field("orderList")
     private List<String> orderList;
     @Field("rating")
-    private Float rating;
+    private Double rating;
     @Field("verified")
     private Boolean verified;
     @Field("about")
@@ -36,8 +40,10 @@ public class Cook {
     private Double lat;
     @Field("lng")
     private Double lng;
+    @Field("location")
+    private JSONObject location;
 
-    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Float rating, Boolean verified, String about, Double lat, Double lng) {
+    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng) {
         this.cookId = cookId;
         this.permitNumber = permitNumber;
         this.address1 = address1;
@@ -52,8 +58,26 @@ public class Cook {
         this.about = about;
         this.lat = lat;
         this.lng = lng;
+        ArrayList<Double> coordinates = new ArrayList<Double>();
+        coordinates.add(lng);
+        coordinates.add(lat);
+        this.location = new JSONObject();
+        this.location.appendField("type", "Point");
+        this.location.appendField("coordinates", coordinates);
     }
-
+/*
+    public Cook(String cookId, Double lat, Double lng) {
+        this.cookId = cookId;
+        this.lat = lat;
+        this.lng = lng;
+        ArrayList<Double> coordinates = new ArrayList<Double>();
+        coordinates.add(lng);
+        coordinates.add(lat);
+        this.location = new JSONObject();
+        this.location.appendField("type", "Point");
+        this.location.appendField("coordinates", coordinates);
+    }
+*/
     public String getCookId() {
         return cookId;
     }
@@ -126,11 +150,11 @@ public class Cook {
         this.orderList = orderList;
     }
 
-    public Float getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -164,5 +188,13 @@ public class Cook {
 
     public void setLng(Double lng) {
         this.lng = lng;
+    }
+
+    public JSONObject getLocation() {
+        return location;
+    }
+
+    public void setLocation(JSONObject location) {
+        this.location = location;
     }
 }
