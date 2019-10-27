@@ -27,6 +27,66 @@ public class CookController {
         return cookService.getAllCooks();
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String testCookFunctions(){
+        String ans = "";
+        // test post and get
+        Cook cook = new Cook("TESTING", "T","E","S","T","T",0,
+                "E",null, 5.0 ,Boolean.FALSE,"T", 37.376202, -122.101392);
+        cookService.postCook(cook);
+        Cook getCook = cookService.getCookById("TESTING").orElse(null);
+        if (getCook != null){
+            ans += "postCook works\r\n";
+            ans += "getCookById works\r\n";
+        }
+        else{
+            ans += "postCook Fail\r\n";
+            ans += "getCookById Fail\r\n";
+        }
+
+        // test patch and get
+        cook.setRating(1.0);
+        cookService.updateCookById("TESTING", cook);
+        getCook = cookService.getCookById("TESTING").orElse(null);
+        if (getCook != null && getCook.getRating() == 1.0){
+            ans += "updateCookById works\r\n";
+        }
+        else{
+            ans += "updateCookById Fail\r\n";
+        }
+
+        // test geoSearch and get
+        cookService.updateCookById("TESTING", cook);
+        getCook = cookService.getCookById("TESTING").orElse(null);
+        Point point = new Point(cook.getLng(), cook.getLat());
+        Distance distance = new Distance(10, Metrics.MILES);
+        List<Cook> getCooks = cookService.getCookByPoint(point, distance);
+        Boolean flag = Boolean.FALSE;
+        for (Cook c: getCooks)
+        {
+            if (c.getCookId().equals("TESTING")){
+                flag = Boolean.TRUE;
+            }
+        }
+        if (flag == Boolean.TRUE) {
+            ans += "getCookByPoint works\r\n";
+        }
+        else{
+            ans += "getCookByPoint Fail\r\n";
+        }
+
+        // test delete and get
+        cookService.deleteCookById("TESTING");
+        getCook = cookService.getCookById("TESTING").orElse(null);
+        if (getCook == null){
+            ans += "deleteCookById works\r\n";
+        }
+        else{
+            ans += "deleteCookById Fail\r\n";
+        }
+        return ans;
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Cook getCookById(@PathVariable("id") String id) {
         return cookService.getCookById(id).orElse(null);
