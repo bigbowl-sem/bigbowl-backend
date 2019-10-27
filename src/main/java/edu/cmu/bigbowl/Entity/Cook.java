@@ -4,6 +4,8 @@ import com.mongodb.client.model.geojson.GeoJsonObjectType;
 import com.mongodb.client.model.geojson.Point;
 import net.minidev.json.JSONObject;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -41,6 +43,7 @@ public class Cook {
     @Field("lng")
     private Double lng;
     @Field("location")
+    @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private JSONObject location;
 
     public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng) {
