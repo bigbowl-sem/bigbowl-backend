@@ -17,7 +17,7 @@ public class Order {
     @Field("datetime")
     private Date datetime;
     @Field("tax")
-    private float tax;
+    private Double tax;
     @Field("readyTime")
     private Date readyTime;
     @Field("pickUpName")
@@ -27,7 +27,7 @@ public class Order {
     @Field("pickUpTime")
     private Date pickUpTime;
 
-    public Order(String orderId, String eaterId, String cookId, Date datetime, float tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime) {
+    public Order(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime) {
         this.orderId = orderId;
         this.eaterId = eaterId;
         this.cookId = cookId;
@@ -71,11 +71,11 @@ public class Order {
         this.datetime = datetime;
     }
 
-    public float getTax() {
+    public Double getTax() {
         return tax;
     }
 
-    public void setTax(float tax) {
+    public void setTax(Double tax) {
         this.tax = tax;
     }
 

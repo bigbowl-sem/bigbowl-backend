@@ -9,9 +9,9 @@ public class Eater {
     @Id
     private String eaterId;
     @Field("rating")
-    private Float rating;
+    private Double rating;
 
-    public Eater(String eaterId, Float rating) {
+    public Eater(String eaterId, Double rating) {
         this.eaterId = eaterId;
         this.rating = rating;
     }
@@ -24,11 +24,11 @@ public class Eater {
         this.eaterId = eaterId;
     }
 
-    public Float getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 }
