@@ -39,12 +39,15 @@ public class ReviewService {
     }
 
     public Optional<Review> updateReviewById(String id, Review review) {
-        Optional<Review> optReview = reviewDao.findById(id);
-        /*if (review.getRating() != null) {
-            optReview.ifPresent(theReview -> theReview.setRating(review.getRating()));
-        }*/
-        optReview.ifPresent(theReview -> reviewDao.save(theReview));
-        return optReview;
+        Optional<Review> optEater = reviewDao.findById(id);
+        // TODO: 10/22/19
+        // Right now it will save with the latest JSON which it's Id matched. But won't update
+        // accordingly.
+        if (review.getOrderId() != null) {
+            optEater.ifPresent(theEater -> theEater.setOrderId(review.getOrderId()));
+        }
+        optEater.ifPresent(theEater -> reviewDao.save(theEater));
+        return optEater;
     }
 
     // Delete
