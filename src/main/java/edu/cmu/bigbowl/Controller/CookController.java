@@ -92,12 +92,9 @@ public class CookController {
         return cookService.getCookById(id).orElse(null);
     }
 
-    @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Cook> getCookByPoint(@RequestBody JSONObject cookQuery) {
-        Double lng = cookQuery.getAsNumber("lng").doubleValue();
-        Double lat = cookQuery.getAsNumber("lat").doubleValue();
-        Double radius = cookQuery.getAsNumber("radius").doubleValue();
-        Double rating = cookQuery.getAsNumber("rating").doubleValue();
+    @RequestMapping(value = "/proximity", method = RequestMethod.GET)
+    public List<Cook> getCookByPoint(@RequestParam("lng") Double lng, @RequestParam("lat") Double lat, @RequestParam("radius") int radius ) {
+        Double rating = null; //cookQuery.getAsNumber("rating").doubleValue();
         Point point = new Point(lng, lat);
         Distance distance = new Distance(radius, Metrics.MILES);
         if (rating == null){

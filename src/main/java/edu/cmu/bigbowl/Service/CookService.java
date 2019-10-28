@@ -26,10 +26,10 @@ public class CookService {
     public void postFakeCook() {
         Integer numOfCook = 50;
         Double latMin, latMax, lngMin, lngMax, ratingMin, ratingMax;
-        latMin = 37.376202;
-        latMax = 37.426854;
-        lngMin = -122.101392;
-        lngMax = -122.068942;
+        latMin = 37.775902;
+        latMax = 37.798165;
+        lngMin = -122.414496;
+        lngMax = -122.401194;
         ratingMin = 0.0;
         ratingMax = 5.0;
         /*
