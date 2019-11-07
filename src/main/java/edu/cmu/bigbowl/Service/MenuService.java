@@ -30,11 +30,11 @@ public class MenuService {
 
     // Update
     public Optional<Menu> updateMenus(Menu menu) {
-        if (menu.getMenuId() != null) {
+        if (menu.getCookId() != null) {
             // TODO: 10/22/19
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
-            return updateMenuById(menu.getMenuId(), menu);
+            return updateMenuById(menu.getCookId(), menu);
         }
         else{
             return null;
@@ -52,7 +52,7 @@ public class MenuService {
 
     // Delete
     public Optional<Menu> deleteMenu(Menu menu) {
-        Optional<Menu> optMenu = menuDao.findById(menu.getMenuId());
+        Optional<Menu> optMenu = menuDao.findById(menu.getCookId());
         optMenu.ifPresent(theMenu -> menuDao.delete(theMenu));
         return optMenu;
     }

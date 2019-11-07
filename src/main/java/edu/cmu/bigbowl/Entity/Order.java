@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "order")
 public class Order {
@@ -26,6 +27,8 @@ public class Order {
     private String pickUpContact;
     @Field("pickUpTime")
     private Date pickUpTime;
+    @Field("cartId")
+    private String cartId;
 
     public Order(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime) {
         this.orderId = orderId;
@@ -39,6 +42,17 @@ public class Order {
         this.pickUpTime = pickUpTime;
     }
 
+    public void setOrderWithCart(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime, Cart cart) {
+        this.orderId = orderId;
+        this.eaterId = eaterId;
+        this.cookId = cookId;
+        this.datetime = datetime;
+        this.tax = tax;
+        this.readyTime = readyTime;
+        this.pickUpName = pickUpName;
+        this.pickUpContact = pickUpContact;
+        this.pickUpTime = pickUpTime;
+    }
     public String getOrderId() {
         return orderId;
     }
@@ -109,5 +123,13 @@ public class Order {
 
     public void setPickUpTime(Date pickUpTime) {
         this.pickUpTime = pickUpTime;
+    }
+
+    public String getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(String cartId) {
+        this.cartId = cartId;
     }
 }

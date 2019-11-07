@@ -45,8 +45,11 @@ public class Cook {
     @Field("location")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private JSONObject location;
+    @Field("menuId")
+    private String menuId;
 
-    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng) {
+
+    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng, String menuId) {
         this.cookId = cookId;
         this.permitNumber = permitNumber;
         this.address1 = address1;
@@ -67,6 +70,7 @@ public class Cook {
         this.location = new JSONObject();
         this.location.appendField("type", "Point");
         this.location.appendField("coordinates", coordinates);
+        this.menuId = menuId;
     }
 /*
     public Cook(String cookId, Double lat, Double lng) {
@@ -199,5 +203,13 @@ public class Cook {
 
     public void setLocation(JSONObject location) {
         this.location = location;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
     }
 }

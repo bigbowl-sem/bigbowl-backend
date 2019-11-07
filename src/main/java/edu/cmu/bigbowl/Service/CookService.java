@@ -53,7 +53,7 @@ public class CookService {
             Double latValue = latMin + (latMax - latMin) * r.nextDouble();
             Double lngValue = lngMin + (lngMax - lngMin) * r.nextDouble();
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
-            Cook cook = new Cook( "Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue);
+            Cook cook = new Cook( "Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, null);
             cookDao.save(cook);
         }
 
