@@ -59,4 +59,10 @@ public class MenuController {
     public Menu insertMenu(@RequestBody Menu menu) {
         return menuService.postMenu(menu);
     }
+
+    @RequestMapping(value = "/fake", method = RequestMethod.POST)
+    public Collection<Menu> insertItem() {
+        menuService.postFakeMenu();
+        return menuService.getAllMenus();
+    }
 }

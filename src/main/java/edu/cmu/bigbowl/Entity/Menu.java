@@ -5,11 +5,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "menu")
 public class Menu {
     @Id
-    private String menuId;
+    private String cookId;
     @Field("createTime")
     private Date createTime;
     @Field("cooking")
@@ -18,21 +19,24 @@ public class Menu {
     private String cuisine;
     @Field("publish")
     private Boolean publish;
+    @Field("itemIds")
+    private List<String> itemIds;
 
-    public Menu(String menuId, Date createTime, Boolean cooking, String cuisine, Boolean publish) {
-        this.menuId = menuId;
+    public Menu(String cookId, Date createTime, Boolean cooking, String cuisine, Boolean publish, List<String> itemIds) {
+        this.cookId = cookId;
         this.createTime = createTime;
         this.cooking = cooking;
         this.cuisine = cuisine;
         this.publish = publish;
+        this.itemIds = itemIds;
     }
 
-    public String getMenuId() {
-        return menuId;
+    public String getCookId() {
+        return cookId;
     }
 
-    public void setMenuId(String menuId) {
-        this.menuId = menuId;
+    public void setCookId(String cookId) {
+        this.cookId = cookId;
     }
 
     public Date getCreateTime() {
@@ -65,5 +69,13 @@ public class Menu {
 
     public void setPublish(Boolean publish) {
         this.publish = publish;
+    }
+
+    public List<String> getItemIds() {
+        return itemIds;
+    }
+
+    public void setItemIds(List<String> itemIds) {
+        this.itemIds = itemIds;
     }
 }

@@ -58,4 +58,10 @@ public class AccountController {
     public Account insertAccount(@RequestBody Account account) {
         return accountService.postAccount(account);
     }
+
+    @RequestMapping(value = "/fake", method = RequestMethod.POST)
+    public Collection<Account> insertAccount() {
+        accountService.postFakeAccount();
+        return accountService.getAllAccounts();
+    }
 }

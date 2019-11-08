@@ -39,7 +39,7 @@ public class ItemController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        itemService.deleteAccounts();
+        itemService.deleteitems();
     }
 
     // PATCH
@@ -57,5 +57,11 @@ public class ItemController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Item insertItem(@RequestBody Item item) {
         return itemService.postItem(item);
+    }
+
+    @RequestMapping(value = "/fake", method = RequestMethod.POST)
+    public Collection<Item> insertItem() {
+        itemService.postFakeItem();
+        return itemService.getAllItems();
     }
 }

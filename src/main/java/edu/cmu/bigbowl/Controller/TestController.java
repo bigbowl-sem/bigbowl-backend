@@ -20,11 +20,15 @@ public class TestController {
     @Autowired
     private CookService cookService;
     @Autowired
+    private CartService cartService;
+    @Autowired
     private AccountService accountService;
     @Autowired
     private EaterService eaterService;
     @Autowired
     private ItemService itemService;
+    @Autowired
+    private CheckoutItemService checkoutItemService;
     @Autowired
     private MenuService menuService;
     @Autowired
@@ -40,10 +44,14 @@ public class TestController {
         res += testAccountFunctions();
         res += "\r\n[Cook Service]\r\n";
         res += testCookFunctions();
+        res += "\r\n[Cart Service]\r\n";
+        res += testCartFunctions();
         res += "\n[Eater Service]\r\n";
         res += testEaterFunctions();
         res += "\n[Item Service]\r\n";
         res += testItemFunctions();
+        res += "\n[CheckoutItem Service]\r\n";
+        res += testCheckoutItemFunctions();
         res += "\n[Menu Service]\r\n";
         res += testMenuFunctions();
         res += "\n[Order Service]\r\n";
@@ -102,6 +110,55 @@ public class TestController {
         return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
     }
 
+
+    @RequestMapping(value = "/cart", method = RequestMethod.GET)
+    public String testCartFunctions(){
+        String ans = "";
+        Integer testNum = 0;
+        Integer passNum = 0;
+
+        // test post and get
+        testNum += 2;
+        Cart cart = new Cart("TESTING", null, 1.2);
+        cartService.postCart(cart);
+        Cart getCart = cartService.getCartById("TESTING").orElse(null);
+        if (getCart != null){
+            ans += "postCart works\r\n";
+            ans += "getCartById works\r\n";
+            passNum += 2;
+        }
+        else{
+            ans += "postCart Fail\r\n";
+            ans += "getCartById Fail\r\n";
+        }
+
+        // test patch and get
+        testNum += 1;
+        cart.setTotalPrice(1.1);
+        cartService.updateCartById("TESTING", cart);
+        getCart = cartService.getCartById("TESTING").orElse(null);
+        if (getCart != null && getCart.getTotalPrice() == 1.1){
+            ans += "updateCartById works\r\n";
+            passNum += 1;
+        }
+        else{
+            ans += "updateCartById Fail\r\n";
+        }
+
+        // test delete and get
+        testNum += 1;
+        cartService.deleteCartById("TESTING");
+        getCart = cartService.getCartById("TESTING").orElse(null);
+        if (getCart == null){
+            ans += "deleteCartById works\r\n";
+            passNum += 1;
+        }
+        else{
+            ans += "deleteCartById Fail\r\n";
+        }
+        return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
+    }
+
     @RequestMapping(value = "/cook", method = RequestMethod.GET)
     public String testCookFunctions(){
         String ans = "";
@@ -110,7 +167,7 @@ public class TestController {
         // test post and get
         testNum += 2;
         Cook cook = new Cook("TESTING", "T","E","S","T","T",0,
-                "E",null, 5.0 ,Boolean.FALSE,"T", 37.376202, -122.101392);
+                "E",null, 5.0 ,Boolean.FALSE,"T", 37.376202, -122.101392, "T");
         cookService.postCook(cook);
         Cook getCook = cookService.getCookById("TESTING").orElse(null);
         if (getCook != null){
@@ -229,7 +286,7 @@ public class TestController {
 
         // test post and get
         testNum += 2;
-        Item item = new Item("TESTING", "TT", 1, 2);
+        Item item = new Item("TESTING", "EE","TT", 1, 2.0, "T");
         itemService.postItem(item);
         Item getItem = itemService.getItemById("TESTING").orElse(null);
         if (getItem != null){
@@ -269,6 +326,53 @@ public class TestController {
         return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
     }
 
+    @RequestMapping(value = "/checkoutItem", method = RequestMethod.GET)
+    public String testCheckoutItemFunctions(){
+        String ans = "";
+        Integer testNum = 0;
+        Integer passNum = 0;
+
+        // test post and get
+        testNum += 2;
+        CheckoutItem checkoutItem = new CheckoutItem("TESTING", 0.0, 1, "aa");
+        checkoutItemService.postCheckoutItem(checkoutItem);
+        CheckoutItem getCheckoutItem = checkoutItemService.getCheckoutItemById("TESTING").orElse(null);
+        if (getCheckoutItem != null){
+            ans += "postCheckoutItem works\r\n";
+            ans += "getCheckoutItemById works\r\n";
+            passNum += 2;
+        }
+        else{
+            ans += "postCheckoutItem Fail\r\n";
+            ans += "getCheckoutItemById Fail\r\n";
+        }
+
+        // test patch and get
+        testNum += 1;
+        checkoutItem.setItemId("LOL");
+        checkoutItemService.updateCheckoutItemById("TESTING", checkoutItem);
+        getCheckoutItem = checkoutItemService.getCheckoutItemById("TESTING").orElse(null);
+        if (getCheckoutItem != null && getCheckoutItem.getItemId().equals("LOL")){
+            ans += "updateCheckoutItemById works\r\n";
+            passNum += 1;
+        }
+        else{
+            ans += "updateCheckoutItemById Fail\r\n";
+        }
+
+        // test delete and get
+        testNum += 1;
+        checkoutItemService.deleteCheckoutItemById("TESTING");
+        getCheckoutItem = checkoutItemService.getCheckoutItemById("TESTING").orElse(null);
+        if (getCheckoutItem == null){
+            ans += "deleteCheckoutItemById works\r\n";
+            passNum += 1;
+        }
+        else{
+            ans += "deleteCheckoutItemById Fail\r\n";
+        }
+        return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
+    }
 
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String testMenuFunctions(){
@@ -278,7 +382,7 @@ public class TestController {
 
         // test post and get
         testNum += 2;
-        Menu menu = new Menu("TESTING", new Date(), Boolean.TRUE,"S",Boolean.TRUE);
+        Menu menu = new Menu("TESTING", new Date(), Boolean.TRUE,"S",Boolean.TRUE, null);
         menuService.postMenu(menu);
         Menu getMenu = menuService.getMenuById("TESTING").orElse(null);
         if (getMenu != null){

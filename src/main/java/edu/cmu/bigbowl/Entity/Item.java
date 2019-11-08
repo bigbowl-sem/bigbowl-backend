@@ -8,18 +8,24 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Item {
     @Id
     private String itemId;
+    @Field("name")
+    private String name;
     @Field("description")
     private String description;
     @Field("quantity")
     private Integer quantity;
     @Field("unitPrice")
-    private Float unitPrice;
+    private Double unitPrice;
+    @Field("cuisine")
+    private String cuisine;
 
-    public Item(String itemId, String description, int quantity, float unitPrice) {
+    public Item(String itemId, String name, String description, Integer quantity, Double unitPrice, String cuisine) {
         this.itemId = itemId;
+        this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
+        this.cuisine = cuisine;
     }
 
     public String getItemId() {
@@ -46,11 +52,27 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public Float getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Float unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
