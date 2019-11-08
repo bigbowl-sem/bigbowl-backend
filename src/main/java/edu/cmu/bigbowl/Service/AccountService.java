@@ -5,9 +5,9 @@ import edu.cmu.bigbowl.Entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
+
+import static java.lang.StrictMath.abs;
 
 @Service
 public class AccountService {
@@ -21,6 +21,43 @@ public class AccountService {
         account.setCreateTime(now);
         return accountDao.save(account);
     }
+
+    public void postFakeAccount() {
+
+        Integer numOfAccount = 50;
+        ArrayList<String> firstName = new ArrayList<>();
+        firstName.add("Jack");
+        firstName.add("Jackson");
+        firstName.add("Allen");
+        firstName.add("Shawn");
+        firstName.add("Cyder");
+        firstName.add("Bob");
+        firstName.add("Evan");
+        firstName.add("Frank");
+        firstName.add("Gorge");
+        firstName.add("Emily");
+        firstName.add("Sam");
+        firstName.add("Sosa");
+        firstName.add("Ivan");
+
+        ArrayList<String> lastName = new ArrayList<>();
+        lastName.add("Lynch");
+        lastName.add("Smith");
+        lastName.add("Jobs");
+        lastName.add("Cook");
+        lastName.add("Page");
+        lastName.add("Tan");
+        lastName.add("Show");
+
+        for (Integer cnt = 0; cnt < numOfAccount; cnt += 1) {
+            Random r = new Random();
+            Integer firstNum = abs(r.nextInt()) % firstName.size();
+            Integer lastNum = abs(r.nextInt()) % lastName.size();
+            Account account = new Account("Fake" + cnt, null, null, firstName.get(firstNum), lastName.get(lastNum), null, Boolean.TRUE, Boolean.TRUE);
+            accountDao.save(account);
+        }
+    }
+
 
     // Read
     public Collection<Account> getAllAccounts() {

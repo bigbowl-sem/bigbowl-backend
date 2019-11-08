@@ -8,10 +8,7 @@ import org.springframework.data.geo.Point;
 import org.springframework.data.geo.Distance;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class CookService {
@@ -49,11 +46,13 @@ public class CookService {
 
         for (Integer cnt = 0; cnt < numOfCook; cnt += 1)
         {
+
             Random r = new Random();
             Double latValue = latMin + (latMax - latMin) * r.nextDouble();
             Double lngValue = lngMin + (lngMax - lngMin) * r.nextDouble();
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
-            Cook cook = new Cook( "Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, null);
+
+            Cook cook = new Cook( "Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt);
             cookDao.save(cook);
         }
 

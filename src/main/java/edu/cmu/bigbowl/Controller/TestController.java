@@ -286,7 +286,7 @@ public class TestController {
 
         // test post and get
         testNum += 2;
-        Item item = new Item("TESTING", "TT", 1, 2);
+        Item item = new Item("TESTING", "EE","TT", 1, 2.0, "T");
         itemService.postItem(item);
         Item getItem = itemService.getItemById("TESTING").orElse(null);
         if (getItem != null){

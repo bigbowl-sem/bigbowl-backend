@@ -5,8 +5,9 @@ import edu.cmu.bigbowl.Entity.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+
+import static java.lang.StrictMath.abs;
 
 @Service
 public class MenuService {
@@ -17,6 +18,26 @@ public class MenuService {
     // Create
     public Menu postMenu(Menu menu) {
         return menuDao.save(menu);
+    }
+
+    public void postFakeMenu(){
+        Integer numOfAccount = 50;
+        ArrayList<String> cuisines = new ArrayList<>();
+        cuisines.add("Thai");
+        cuisines.add("Japanese");
+        cuisines.add("Chinese");
+        cuisines.add("Italian");
+        cuisines.add("American");
+        cuisines.add("Mexican");
+
+        for (Integer cnt = 0; cnt < numOfAccount; cnt += 1) {
+            Random r = new Random();
+            Integer cuisineNum = abs(r.nextInt()) % cuisines.size();
+            List<String> itemIds = new ArrayList<>();
+            itemIds.add("Fake" + cnt);
+            Menu account = new Menu("Fake" + cnt, new Date(), Boolean.TRUE, cuisines.get(cuisineNum), Boolean.TRUE, itemIds);
+            menuDao.save(account);
+        }
     }
 
     // Read
