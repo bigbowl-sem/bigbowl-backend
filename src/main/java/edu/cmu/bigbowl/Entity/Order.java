@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
-import java.util.List;
 
 @Document(collection = "order")
 public class Order {
@@ -29,6 +28,10 @@ public class Order {
     private Date pickUpTime;
     @Field("cartId")
     private String cartId;
+    @Field("eaterConfirmed")
+    private boolean eaterConfirmed;
+    @Field("cookConfirmed")
+    private boolean cookConfirmed;
 
     public Order(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime) {
         this.orderId = orderId;
@@ -40,6 +43,8 @@ public class Order {
         this.pickUpName = pickUpName;
         this.pickUpContact = pickUpContact;
         this.pickUpTime = pickUpTime;
+        this.setEaterConfirmed(false);
+        this.setCookConfirmed(false);
     }
 
     public void setOrderWithCart(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime, Cart cart) {
@@ -131,5 +136,21 @@ public class Order {
 
     public void setCartId(String cartId) {
         this.cartId = cartId;
+    }
+
+    public boolean isEaterConfirmed() {
+        return eaterConfirmed;
+    }
+
+    public void setEaterConfirmed(boolean eaterConfirmed) {
+        this.eaterConfirmed = eaterConfirmed;
+    }
+
+    public boolean isCookConfirmed() {
+        return cookConfirmed;
+    }
+
+    public void setCookConfirmed(boolean cookConfirmed) {
+        this.cookConfirmed = cookConfirmed;
     }
 }

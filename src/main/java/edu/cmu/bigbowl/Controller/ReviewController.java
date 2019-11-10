@@ -1,5 +1,6 @@
 package edu.cmu.bigbowl.Controller;
 
+import edu.cmu.bigbowl.Entity.Order;
 import edu.cmu.bigbowl.Entity.Review;
 import edu.cmu.bigbowl.Service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class ReviewController {
         return reviewService.getReviewByEaterId(eaterId);
     }
 
+    @RequestMapping(value = "orderId/{orderId}", method = RequestMethod.GET)
+    public List<Review> getReviewByOrderId(@PathVariable("orderId") String orderId) {
+        return reviewService.getReviewByOrderId(orderId);
+    }
     @RequestMapping(value = "cookId/{cookId}", method = RequestMethod.GET)
     public List<Review> getReviewByCookId(@PathVariable("cookId") String cookId) {
         return reviewService.getReviewByCookId(cookId);

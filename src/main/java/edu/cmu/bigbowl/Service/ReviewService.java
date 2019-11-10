@@ -62,6 +62,10 @@ public class ReviewService {
         return reviewDao.findReviewsByCookId(cookId);
     }
 
+    public List<Review> getReviewByOrderId(String orderId) {
+        return reviewDao.findReviewsByOrderId(orderId);
+    }
+
     // Update
     public Optional<Review> updateReviews(Review review) {
         if (review.getReviewId() != null) {
