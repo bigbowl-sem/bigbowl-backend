@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/review")
@@ -24,6 +25,11 @@ public class ReviewController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Review getReviewById(@PathVariable("id") String id) {
         return reviewService.getReviewById(id).orElse(null);
+    }
+
+    @RequestMapping(value = "eaterId/{eaterId}", method = RequestMethod.GET)
+    public List<Review> getReviewByEaterId(@PathVariable("eaterId") String eaterId) {
+        return reviewService.getReviewByEaterId(eaterId);
     }
 
     // DELETE
@@ -57,5 +63,11 @@ public class ReviewController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Review insertReview(@RequestBody Review review) {
         return reviewService.postReview(review);
+    }
+
+    @RequestMapping(value = "/fake", method = RequestMethod.POST)
+    public Collection<Review> insertReview() {
+        reviewService.postFakeReview();
+        return reviewService.getAllReviews();
     }
 }

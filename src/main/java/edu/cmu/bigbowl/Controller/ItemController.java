@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/item")
@@ -24,6 +26,11 @@ public class ItemController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Item getItemById(@PathVariable("id") String id) {
         return itemService.getItemById(id).orElse(null);
+    }
+
+    @RequestMapping(value = "/cuisine/{cuisine}", method = RequestMethod.GET)
+    public List<Item> getItemsByCuisine(@PathVariable("cuisine") String cuisine) {
+        return itemService.getItemsByCuisine(cuisine);
     }
 
     // DELETE

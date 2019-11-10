@@ -167,7 +167,7 @@ public class TestController {
         // test post and get
         testNum += 2;
         Cook cook = new Cook("TESTING", "T","E","S","T","T",0,
-                "E",null, 5.0 ,Boolean.FALSE,"T", 37.376202, -122.101392, "T");
+                "E",null, 5.0 ,Boolean.FALSE,"T", 37.376202, -122.101392, "T", "E");
         cookService.postCook(cook);
         Cook getCook = cookService.getCookById("TESTING").orElse(null);
         if (getCook != null){

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,17 @@ public class ReviewService {
         return reviewDao.save(review);
     }
 
+    public void postFakeReview() {
+        Integer numOfReview = 50;
+        for (Integer cnt = 0; cnt < numOfReview; cnt += 1)
+        {
+            Review review = new Review( "Fake" + cnt, null, null, "Fake" + cnt);
+            reviewDao.save(review);
+        }
+
+        return;
+    }
+
     // Read
     public Collection<Review> getAllReviews() {
         return reviewDao.findAll();
@@ -26,6 +38,10 @@ public class ReviewService {
 
     public Optional<Review> getReviewById(String id) {
         return reviewDao.findById(id);
+    }
+
+    public List<Review> getReviewByEaterId(String eaterId) {
+        return reviewDao.findReviewByEaterId(eaterId);
     }
 
     // Update
