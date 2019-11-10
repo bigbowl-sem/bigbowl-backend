@@ -56,6 +56,11 @@ public class CartController {
     // POST
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cart insertCart(@RequestBody Cart cart) {
-        return cartService.postCart(cart);
+        Cart existingCart = cartService.getCartById(cart.getCartId()).orElse(null);
+        if(existingCart == null) {
+            return cartService.postCart(cart);
+        }
+
+        return cartService.updateCartById(cart.getCartId(), cart).get();
     }
 }
