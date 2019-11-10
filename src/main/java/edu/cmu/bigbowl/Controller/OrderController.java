@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -25,6 +26,16 @@ public class OrderController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Order getOrderById(@PathVariable("id") String id) {
         return orderService.getOrderById(id).orElse(null);
+    }
+
+    @RequestMapping(value = "eaterId/{eaterId}", method = RequestMethod.GET)
+    public List<Order> getOrderByEaterId(@PathVariable("eaterId") String eaterId) {
+        return orderService.getOrderByEaterId(eaterId);
+    }
+
+    @RequestMapping(value = "cookId/{cookId}", method = RequestMethod.GET)
+    public List<Order> getOrderByCookId(@PathVariable("cookId") String cookId) {
+        return orderService.getOrderByCookId(cookId);
     }
 
     // DELETE

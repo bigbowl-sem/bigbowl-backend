@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ReviewDao extends MongoRepository<Review, String> {
-    List<Review> findReviewByEaterId(String eaterId);
+    List<Review> findReviewsByEaterId(String eaterId);
+    List<Review> findReviewsByCookId(String cookId);
 }

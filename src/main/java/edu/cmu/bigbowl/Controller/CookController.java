@@ -11,6 +11,7 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class CookController {
         return cookService.getCookById(id).orElse(null);
     }
 
-    @RequestMapping(value = "/proximity", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/proximity", method = RequestMethod.GET)
     public List<Cook> getCookByPoint(@RequestParam("lng") Double lng, @RequestParam("lat") Double lat, @RequestParam("radius") int radius ) {
         Double rating = null; //cookQuery.getAsNumber("rating").doubleValue();
         Point point = new Point(lng, lat);
@@ -49,7 +50,7 @@ public class CookController {
             }
             return cooks;
         }
-    }
+    }*/
     /*
     @RequestMapping(value = "/{lat}/{lng}/{radius}", method = RequestMethod.GET)
     public List<Cook> getCookByPoint(@PathVariable("lat") double lat, @PathVariable("lng") double lng, @PathVariable("radius") double radius) {
@@ -60,11 +61,33 @@ public class CookController {
     }
     */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public List<Cook> getCookByPoint(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng, @RequestParam("radius") Double radius) {
-        //return cookService.getCookById(id).orElse(null);
+    public List<Cook> getCookByPoint(
+            @RequestParam(value = "lat") Double lat,
+            @RequestParam("lng") Double lng,
+            @RequestParam("radius") Double radius,
+            @RequestParam(value = "cuisine", required = false) String cuisine,
+            @RequestParam(value = "pMin", required = false) String pMin,
+            @RequestParam(value = "pMax", required = false) String pMax,
+            @RequestParam(value = "rMin", required = false) String rMin,
+            @RequestParam(value = "rMax", required = false) String rMax
+            ) {
         Point point = new Point(lng, lat);
         Distance distance = new Distance(radius, Metrics.MILES);
-        return cookService.getCookByPoint(point, distance);
+        List<Cook> cooks;
+        List<Cook> ansCooks = new ArrayList<>();
+        if (cuisine == null && pMin == null && pMax == null && rMin == null && rMax == null) {
+            return cookService.getCookByPoint(point, distance);
+        }
+        if (pMin == null && rMin == null) {
+            return cookService.getCookByPoint(point, distance, cuisine);
+        }
+        if (pMin != null && rMin == null){
+            return cookService.getCookByPointWithPrice(point, distance, cuisine, Double.parseDouble(pMin), Double.parseDouble(pMax));
+        }
+        if (pMin == null && rMin != null){
+            return cookService.getCookByPointWithRating(point, distance, cuisine, Double.parseDouble(rMin), Double.parseDouble(rMax));
+        }
+        return cookService.getCookByPoint(point, distance, cuisine, Double.parseDouble(pMin), Double.parseDouble(pMax), Double.parseDouble(rMin), Double.parseDouble(rMax));
     }
 
     // DELETE

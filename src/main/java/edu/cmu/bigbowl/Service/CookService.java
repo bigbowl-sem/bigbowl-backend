@@ -2,8 +2,10 @@ package edu.cmu.bigbowl.Service;
 
 import edu.cmu.bigbowl.Dao.AccountDao;
 import edu.cmu.bigbowl.Dao.CookDao;
+import edu.cmu.bigbowl.Dao.ItemDao;
 import edu.cmu.bigbowl.Entity.Account;
 import edu.cmu.bigbowl.Entity.Cook;
+import edu.cmu.bigbowl.Entity.Item;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
@@ -19,6 +21,8 @@ public class CookService {
     private CookDao cookDao;
     @Autowired
     private AccountDao accountDao;
+    @Autowired
+    private ItemDao itemDao;
 
     // Create
     public Cook postCook(Cook cook) {
@@ -57,7 +61,7 @@ public class CookService {
             Double lngValue = lngMin + (lngMax - lngMin) * r.nextDouble();
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
             Account account = accountDao.findById("Fake" + cnt).get();
-            String displayName = account.getFirstName() + " " + account.getLastName() + "\'s";
+            String displayName = account.getFirstName() + " " + account.getLastName();
             Cook cook = new Cook( "Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName);
             cookDao.save(cook);
         }
@@ -76,6 +80,22 @@ public class CookService {
 
     public List<Cook> getCookByPoint(Point point, Distance distance) {
         return cookDao.findByLocationNear(point, distance);
+    }
+
+    public List<Cook> getCookByPoint(Point point, Distance distance, String cuisine) {
+        return cookDao.findByLocationNearAndCuisineContains(point, distance, cuisine);
+    }
+
+    public List<Cook> getCookByPointWithPrice(Point point, Distance distance, String cuisine, Double pMin, Double pMax) {
+        return cookDao.findByLocationNearAndCuisineContainsAndAvgPriceBetween(point, distance, cuisine, pMin, pMax);
+    }
+
+    public List<Cook> getCookByPointWithRating(Point point, Distance distance, String cuisine, Double rMin, Double rMax) {
+        return cookDao.findByLocationNearAndCuisineContainsAndRatingBetween(point, distance, cuisine, rMin, rMax);
+    }
+
+    public List<Cook> getCookByPoint(Point point, Distance distance, String cuisine, Double pMin, Double pMax, Double rMin, Double rMax) {
+        return cookDao.findByLocationNearAndCuisineContainsAndAvgPriceBetweenAndRatingBetween(point, distance, cuisine, pMin, pMax, rMin, rMax);
     }
 
     // Update
@@ -101,6 +121,16 @@ public class CookService {
         }
         optCook.ifPresent(theCook -> cookDao.save(theCook));
         return optCook;
+    }
+
+    public void updateCooksByIdWithItem(String id){
+        Optional<Cook> optCook = cookDao.findById(id);
+        List<Item> items = itemDao.findItemsByCookId(id);
+        if (items.size() != 0) {
+            Item item = items.get(0);
+            optCook.ifPresent(theCook -> theCook.setCuisine(item.getCuisine()));
+        }
+        optCook.ifPresent(theCook -> cookDao.save(theCook));
     }
 
     // Delete

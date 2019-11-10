@@ -286,7 +286,7 @@ public class TestController {
 
         // test post and get
         testNum += 2;
-        Item item = new Item("TESTING", "EE","TT", 1, 2.0, "T");
+        Item item = new Item("TESTING", "EE","TT", 1, 2.0, "T", "E");
         itemService.postItem(item);
         Item getItem = itemService.getItemById("TESTING").orElse(null);
         if (getItem != null){
@@ -479,7 +479,7 @@ public class TestController {
 
         // test post and get
         testNum += 2;
-        Review review = new Review("TESTING", "T", "E", "S");
+        Review review = new Review("TESTING", "T", "E", "S", "T", 0.0);
         reviewService.postReview(review);
         Review getReview = reviewService.getReviewById("TESTING").orElse(null);
         if (getReview != null){

@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface ItemDao extends MongoRepository<Item, String> {
-    //@Query("{'cuisine' : ?0}")
     List<Item> findItemsByCuisine(String cuisine);
-    //Optional<Item> findItemByCuisine(String cuisine);
+    List<Item> findItemsByCookId(String cookId);
 }

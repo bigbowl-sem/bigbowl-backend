@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,14 @@ public class OrderService {
 
     public Optional<Order> getOrderById(String id) {
         return orderDao.findById(id);
+    }
+
+    public List<Order> getOrderByEaterId(String eaterId) {
+        return orderDao.findOrdersByEaterId(eaterId);
+    }
+
+    public List<Order> getOrderByCookId(String cookId) {
+        return orderDao.findOrdersByCookId(cookId);
     }
 
     // Update
