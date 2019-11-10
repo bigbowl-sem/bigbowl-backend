@@ -39,7 +39,7 @@ public class CartController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        cartService.deleteAccounts();
+        cartService.deleteCarts();
     }
 
     // PATCH

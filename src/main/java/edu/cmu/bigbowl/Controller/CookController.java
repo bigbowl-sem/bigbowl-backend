@@ -2,7 +2,6 @@ package edu.cmu.bigbowl.Controller;
 
 import edu.cmu.bigbowl.Entity.Cook;
 import edu.cmu.bigbowl.Service.CookService;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.geo.Point;
@@ -103,7 +102,7 @@ public class CookController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        cookService.deleteAccounts();
+        cookService.deleteCooks();
     }
 
     // PATCH

@@ -84,7 +84,7 @@ public class MenuService {
         return optMenu;
     }
 
-    public void deleteAccounts() {
+    public void deleteMenus() {
         menuDao.deleteAll();
     }
 }

@@ -2,8 +2,10 @@ package edu.cmu.bigbowl.Service;
 
 import edu.cmu.bigbowl.Dao.CookDao;
 import edu.cmu.bigbowl.Dao.ItemDao;
+import edu.cmu.bigbowl.Dao.MenuDao;
 import edu.cmu.bigbowl.Entity.Cook;
 import edu.cmu.bigbowl.Entity.Item;
+import edu.cmu.bigbowl.Entity.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ public class ItemService {
     private ItemDao itemDao;
     @Autowired
     private CookDao cookDao;
+    @Autowired
+    private MenuDao menuDao;
 
     // Create
     public Item postItem(Item item) {
@@ -60,6 +64,8 @@ public class ItemService {
             Integer cuisineNum = abs(r.nextInt()) % cuisines.size();
             Integer itemNum = cuisineNum * 2 + abs(r.nextInt()) % 2;
             Double pValue = pMin + (pMax - pMin) * r.nextDouble();
+            String itemId = "FakeItemId" + cnt;
+
             // update cook cuisine
             Optional<Cook> optCook = cookDao.findById("Fake" + cnt);
             optCook.ifPresent(theCook -> theCook.setCuisine(cuisines.get(cuisineNum)));
@@ -67,8 +73,12 @@ public class ItemService {
             optCook.ifPresent(theCook -> theCook.setAvgPrice( ((theCook.getAvgPrice() * theCook.getTotalItem()) + pValue) / (theCook.getTotalItem() + 1)) );
             optCook.ifPresent(theCook -> theCook.setTotalItem(theCook.getTotalItem() + 1));
             optCook.ifPresent(theCook -> cookDao.save(theCook));
+            // update menu items
+            Optional<Menu> optMenu = menuDao.findById("Fake" + cnt);
+            optMenu.ifPresent(theMenu -> theMenu.addItemId(itemId));
+            optMenu.ifPresent(theMenu -> menuDao.save(theMenu));
 
-            Item item = new Item("Fake" + cnt, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt);
+            Item item = new Item(itemId, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt);
             itemDao.save(item);
         }
     }
@@ -79,6 +89,10 @@ public class ItemService {
 
     public Optional<Item> getItemById(String id) {
         return itemDao.findById(id);
+    }
+
+    public List<Item> getItemByCookId(String cookId) {
+        return itemDao.findItemsByCookId(cookId);
     }
 
     public List<Item> getItemsByCuisine(String cuisine) {

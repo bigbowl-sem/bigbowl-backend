@@ -18,17 +18,17 @@ import java.util.List;
 public class TestController {
 
     @Autowired
-    private CookService cookService;
+    private AccountService accountService;
     @Autowired
     private CartService cartService;
     @Autowired
-    private AccountService accountService;
+    private CheckoutItemService checkoutItemService;
+    @Autowired
+    private CookService cookService;
     @Autowired
     private EaterService eaterService;
     @Autowired
     private ItemService itemService;
-    @Autowired
-    private CheckoutItemService checkoutItemService;
     @Autowired
     private MenuService menuService;
     @Autowired
@@ -109,7 +109,6 @@ public class TestController {
         }
         return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
     }
-
 
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String testCartFunctions(){
@@ -276,7 +275,6 @@ public class TestController {
         }
         return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
     }
-
 
     @RequestMapping(value = "/item", method = RequestMethod.GET)
     public String testItemFunctions(){
@@ -470,7 +468,6 @@ public class TestController {
         return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
     }
 
-
     @RequestMapping(value = "/review", method = RequestMethod.GET)
     public String testReviewFunctions(){
         String ans = "";
@@ -519,4 +516,28 @@ public class TestController {
         return ans + "Test: " + testNum + " Pass: " + passNum + " Pass Ratio: " + passNum + "/" + testNum + " = " + (float)passNum/testNum*100 + "%\r\n";
     }
 
+    // DELETE
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAll()
+    {
+        accountService.deleteAccounts();
+        cartService.deleteCarts();
+        checkoutItemService.deleteCheckoutItems();
+        cookService.deleteCooks();
+        eaterService.deleteEaters();
+        itemService.deleteitems();
+        menuService.deleteMenus();
+        orderService.deleteOrders();
+        reviewService.deleteReviews();
+    }
+
+    // POST
+    @RequestMapping(method = RequestMethod.POST)
+    public void postFakeAll()
+    {
+        accountService.postFakeAccount();
+        cookService.postFakeCook();
+        itemService.postFakeItem();
+        reviewService.postFakeReview();
+    }
 }

@@ -1,13 +1,15 @@
 package edu.cmu.bigbowl.Controller;
 
+import edu.cmu.bigbowl.Entity.Item;
 import edu.cmu.bigbowl.Entity.Menu;
+import edu.cmu.bigbowl.Service.ItemService;
 import edu.cmu.bigbowl.Service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/menu")
@@ -15,6 +17,8 @@ public class MenuController {
 
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private ItemService itemService;
 
     // GET
     @RequestMapping(method = RequestMethod.GET)
@@ -23,8 +27,8 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Menu getMenuById(@PathVariable("id") String id) {
-        return menuService.getMenuById(id).orElse(null);
+    public List<Item> getMenuByCookId(@PathVariable("id") String id) {
+        return itemService.getItemByCookId(id);
     }
 
     // DELETE
@@ -40,7 +44,7 @@ public class MenuController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        menuService.deleteAccounts();
+        menuService.deleteMenus();
     }
 
     // PATCH

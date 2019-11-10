@@ -78,4 +78,8 @@ public class Menu {
     public void setItemIds(List<String> itemIds) {
         this.itemIds = itemIds;
     }
+
+    public void addItemId(String itemId) {
+        this.itemIds.add(itemId);
+    }
 }

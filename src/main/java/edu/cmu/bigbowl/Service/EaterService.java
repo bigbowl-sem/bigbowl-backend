@@ -66,7 +66,7 @@ public class EaterService {
         return optEater;
     }
 
-    public void deleteAccounts() {
+    public void deleteEaters() {
         eaterDao.deleteAll();
     }
 }

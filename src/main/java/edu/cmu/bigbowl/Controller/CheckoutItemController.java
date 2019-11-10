@@ -39,7 +39,7 @@ public class CheckoutItemController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        checkoutItemService.deleteAccounts();
+        checkoutItemService.deleteCheckoutItems();
     }
 
     // PATCH

@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -51,7 +50,7 @@ public class OrderController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        orderService.deleteAccounts();
+        orderService.deleteOrders();
     }
 
     // PATCH
