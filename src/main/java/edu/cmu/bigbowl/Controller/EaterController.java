@@ -39,7 +39,7 @@ public class EaterController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        eaterService.deleteAccounts();
+        eaterService.deleteEaters();
     }
 
     // PATCH

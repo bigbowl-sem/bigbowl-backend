@@ -97,7 +97,7 @@ public class ReviewService {
         return optReview;
     }
 
-    public void deleteAccounts() {
+    public void deleteReviews() {
         reviewDao.deleteAll();
     }
 }

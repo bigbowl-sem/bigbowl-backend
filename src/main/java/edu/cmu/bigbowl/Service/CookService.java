@@ -3,9 +3,11 @@ package edu.cmu.bigbowl.Service;
 import edu.cmu.bigbowl.Dao.AccountDao;
 import edu.cmu.bigbowl.Dao.CookDao;
 import edu.cmu.bigbowl.Dao.ItemDao;
+import edu.cmu.bigbowl.Dao.MenuDao;
 import edu.cmu.bigbowl.Entity.Account;
 import edu.cmu.bigbowl.Entity.Cook;
 import edu.cmu.bigbowl.Entity.Item;
+import edu.cmu.bigbowl.Entity.Menu;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
@@ -23,6 +25,8 @@ public class CookService {
     private AccountDao accountDao;
     @Autowired
     private ItemDao itemDao;
+    @Autowired
+    private MenuDao menuDao;
 
     // Create
     public Cook postCook(Cook cook) {
@@ -62,7 +66,9 @@ public class CookService {
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
             Account account = accountDao.findById("Fake" + cnt).get();
             String displayName = account.getFirstName() + " " + account.getLastName();
-            Cook cook = new Cook( "Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName);
+            Cook cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName);
+            Menu menu = new Menu("Fake" + cnt, new Date(), Boolean.TRUE, null, Boolean.TRUE, new ArrayList<>());
+            menuDao.save(menu);
             cookDao.save(cook);
         }
 
@@ -146,7 +152,7 @@ public class CookService {
         return optCook;
     }
 
-    public void deleteAccounts() {
+    public void deleteCooks() {
         cookDao.deleteAll();
     }
 }

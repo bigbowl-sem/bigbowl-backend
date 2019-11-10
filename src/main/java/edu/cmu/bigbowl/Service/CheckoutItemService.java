@@ -63,7 +63,7 @@ public class CheckoutItemService {
         return optCheckoutItem;
     }
 
-    public void deleteAccounts() {
+    public void deleteCheckoutItems() {
         checkoutItemDao.deleteAll();
     }
 }

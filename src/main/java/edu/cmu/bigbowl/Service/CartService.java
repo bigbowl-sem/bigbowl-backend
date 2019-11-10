@@ -63,7 +63,7 @@ public class CartService {
         return optCart;
     }
 
-    public void deleteAccounts() {
+    public void deleteCarts() {
         cartDao.deleteAll();
     }
 }

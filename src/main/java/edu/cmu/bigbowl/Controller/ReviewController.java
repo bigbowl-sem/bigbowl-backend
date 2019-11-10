@@ -50,7 +50,7 @@ public class ReviewController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.DELETE)
     public void deleteAccounts() {
-        reviewService.deleteAccounts();
+        reviewService.deleteReviews();
     }
 
     // PATCH

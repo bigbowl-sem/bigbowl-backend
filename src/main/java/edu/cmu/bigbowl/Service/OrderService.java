@@ -72,7 +72,7 @@ public class OrderService {
         return optOrder;
     }
 
-    public void deleteAccounts() {
+    public void deleteOrders() {
         orderDao.deleteAll();
     }
 }
