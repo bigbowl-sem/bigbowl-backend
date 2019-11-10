@@ -1,6 +1,8 @@
 package edu.cmu.bigbowl.Service;
 
+import edu.cmu.bigbowl.Dao.CookDao;
 import edu.cmu.bigbowl.Dao.ReviewDao;
+import edu.cmu.bigbowl.Entity.Cook;
 import edu.cmu.bigbowl.Entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class ReviewService {
 
     @Autowired
     private ReviewDao reviewDao;
+    @Autowired
+    private CookDao cookDao;
 
     // Create
     public Review postReview(Review review) {
@@ -21,10 +26,19 @@ public class ReviewService {
     }
 
     public void postFakeReview() {
+        Random r = new Random();
         Integer numOfReview = 50;
+        Double ratingMin = 0.0;
+        Double ratingMax = 5.0;
         for (Integer cnt = 0; cnt < numOfReview; cnt += 1)
         {
-            Review review = new Review( "Fake" + cnt, null, null, "Fake" + cnt);
+            Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
+            Review review = new Review( "Fake" + cnt, null, "Fake" + (cnt + 1), "Fake" + cnt, "Fake" + cnt + " is rated " + ratingValue, ratingValue);
+            // update cook rating and totalRated
+            Optional<Cook> optCook = cookDao.findById("Fake" + cnt);
+            optCook.ifPresent(theCook -> theCook.setRating( ((theCook.getRating() * theCook.getTotalRated()) + ratingValue) / (theCook.getTotalRated() + 1)) );
+            optCook.ifPresent(theCook -> theCook.setTotalRated(theCook.getTotalRated() + 1));
+            optCook.ifPresent(theCook -> cookDao.save(theCook));
             reviewDao.save(review);
         }
 
@@ -41,7 +55,11 @@ public class ReviewService {
     }
 
     public List<Review> getReviewByEaterId(String eaterId) {
-        return reviewDao.findReviewByEaterId(eaterId);
+        return reviewDao.findReviewsByEaterId(eaterId);
+    }
+
+    public List<Review> getReviewByCookId(String cookId) {
+        return reviewDao.findReviewsByCookId(cookId);
     }
 
     // Update

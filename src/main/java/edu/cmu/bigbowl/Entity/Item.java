@@ -18,14 +18,17 @@ public class Item {
     private Double unitPrice;
     @Field("cuisine")
     private String cuisine;
+    @Field("cookId")
+    private String cookId;
 
-    public Item(String itemId, String name, String description, Integer quantity, Double unitPrice, String cuisine) {
+    public Item(String itemId, String name, String description, Integer quantity, Double unitPrice, String cuisine, String cookId) {
         this.itemId = itemId;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.cuisine = cuisine;
+        this.cookId = cookId;
     }
 
     public String getItemId() {
@@ -74,5 +77,13 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCookId() {
+        return cookId;
+    }
+
+    public void setCookId(String cookId) {
+        this.cookId = cookId;
     }
 }

@@ -49,6 +49,14 @@ public class Cook {
     private String menuId;
     @Field("displayName")
     private String displayName;
+    @Field("cuisine")
+    private String cuisine;
+    @Field("totalItem")
+    private Integer totalItem;
+    @Field("avgPrice")
+    private Double avgPrice;
+    @Field("totalRated")
+    private Integer totalRated;
 
 
     public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng, String menuId, String displayName) {
@@ -74,6 +82,9 @@ public class Cook {
         this.location.appendField("coordinates", coordinates);
         this.menuId = menuId;
         this.displayName = displayName;
+        this.totalItem = 0;
+        this.avgPrice = 0.0;
+        this.totalRated = 0;
     }
 /*
     public Cook(String cookId, Double lat, Double lng) {
@@ -222,5 +233,37 @@ public class Cook {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public Integer getTotalItem() {
+        return totalItem;
+    }
+
+    public void setTotalItem(Integer totalItem) {
+        this.totalItem = totalItem;
+    }
+
+    public Double getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(Double avgPrice) {
+        this.avgPrice = avgPrice;
+    }
+
+    public Integer getTotalRated() {
+        return totalRated;
+    }
+
+    public void setTotalRated(Integer totalRated) {
+        this.totalRated = totalRated;
     }
 }

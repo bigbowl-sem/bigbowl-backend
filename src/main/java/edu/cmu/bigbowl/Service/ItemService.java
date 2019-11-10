@@ -1,6 +1,8 @@
 package edu.cmu.bigbowl.Service;
 
+import edu.cmu.bigbowl.Dao.CookDao;
 import edu.cmu.bigbowl.Dao.ItemDao;
+import edu.cmu.bigbowl.Entity.Cook;
 import edu.cmu.bigbowl.Entity.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,15 @@ public class ItemService {
 
     @Autowired
     private ItemDao itemDao;
+    @Autowired
+    private CookDao cookDao;
 
     // Create
     public Item postItem(Item item) {
+        String cookId = item.getCookId();
+        Optional<Cook> optCook = cookDao.findById(cookId);
+        optCook.ifPresent(theCook -> theCook.setCuisine(theCook.getCuisine() + " " + item.getCuisine()));
+        optCook.ifPresent(theCook -> cookDao.save(theCook));
         return itemDao.save(item);
     }
 
@@ -52,8 +60,16 @@ public class ItemService {
             Integer cuisineNum = abs(r.nextInt()) % cuisines.size();
             Integer itemNum = cuisineNum * 2 + abs(r.nextInt()) % 2;
             Double pValue = pMin + (pMax - pMin) * r.nextDouble();
-            Item account = new Item("Fake" + cnt, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum));
-            itemDao.save(account);
+            // update cook cuisine
+            Optional<Cook> optCook = cookDao.findById("Fake" + cnt);
+            optCook.ifPresent(theCook -> theCook.setCuisine(cuisines.get(cuisineNum)));
+            // update cook avgPrice and TotalItem
+            optCook.ifPresent(theCook -> theCook.setAvgPrice( ((theCook.getAvgPrice() * theCook.getTotalItem()) + pValue) / (theCook.getTotalItem() + 1)) );
+            optCook.ifPresent(theCook -> theCook.setTotalItem(theCook.getTotalItem() + 1));
+            optCook.ifPresent(theCook -> cookDao.save(theCook));
+
+            Item item = new Item("Fake" + cnt, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt);
+            itemDao.save(item);
         }
     }
     // Read

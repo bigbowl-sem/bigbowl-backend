@@ -32,6 +32,11 @@ public class ReviewController {
         return reviewService.getReviewByEaterId(eaterId);
     }
 
+    @RequestMapping(value = "cookId/{cookId}", method = RequestMethod.GET)
+    public List<Review> getReviewByCookId(@PathVariable("cookId") String cookId) {
+        return reviewService.getReviewByCookId(cookId);
+    }
+
     // DELETE
     @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
     public Review deleteReview(@RequestBody Review review) {

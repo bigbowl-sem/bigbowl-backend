@@ -14,12 +14,18 @@ public class Review {
     private String cookId;
     @Field("eaterId")
     private String eaterId;
+    @Field("textBody")
+    private String textBody;
+    @Field("rating")
+    private Double rating;
 
-    public Review(String reviewId, String orderId, String cookId, String eaterId) {
+    public Review(String reviewId, String orderId, String cookId, String eaterId, String textBody, Double rating) {
         this.reviewId = reviewId;
         this.orderId = orderId;
         this.cookId = cookId;
         this.eaterId = eaterId;
+        this.textBody = textBody;
+        this.rating = rating;
     }
 
     public String getReviewId() {
@@ -52,5 +58,21 @@ public class Review {
 
     public void setEaterId(String eaterId) {
         this.eaterId = eaterId;
+    }
+
+    public String getTextBody() {
+        return textBody;
+    }
+
+    public void setTextBody(String textBody) {
+        this.textBody = textBody;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }
