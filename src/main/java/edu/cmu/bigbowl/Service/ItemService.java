@@ -65,6 +65,10 @@ public class ItemService {
         return itemDao.findById(id);
     }
 
+    public List<Item> getItemsByCuisine(String cuisine) {
+        return itemDao.findItemsByCuisine(cuisine);
+    }
+
     // Update
     public Optional<Item> updateItems(Item item) {
         if (item.getItemId() != null) {

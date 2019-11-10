@@ -23,7 +23,6 @@ public class AccountService {
     }
 
     public void postFakeAccount() {
-
         Integer numOfAccount = 50;
         ArrayList<String> firstName = new ArrayList<>();
         firstName.add("Jack");
