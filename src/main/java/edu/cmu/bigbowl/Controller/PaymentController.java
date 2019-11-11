@@ -42,12 +42,17 @@ public class PaymentController {
         Cart theCart = cartService.getCartById(cartId).orElse(null);
         HashMap<String, String> map = new HashMap<>();
 
-        if(theCart == null) {
-            map.put("error with cart", "true");
-        }
+//        if(theCart == null) {
+//            map.put("error with cart", "true");
+//            return map;
+//        }
+//        PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
+//                .setCurrency("usd").setAmount(theCart.getTotalPrice().longValue())
+//                .build();
+
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-                .setCurrency("usd").setAmount(theCart.getTotalPrice().longValue())
-                .build();
+        .setCurrency("usd").setAmount((long) 1099)
+        .build();
 
         PaymentIntent intent = null;
         try {
@@ -68,15 +73,18 @@ public class PaymentController {
     public Map<String, String> createOrder(@RequestBody Order order) {
         HashMap<String, String> map = new HashMap<>();
         //need some security here, but whatever
-        Account account = accountService.getAccountById(order.getEaterId()).orElse(null);
-        if(account == null) {
-            map.put("success", "false");
-            return map;
-        }
-        order.setPickUpName(account.getFirstName());
-        order.setPickUpContact(account.getPhone());
+        Account eaterAccount = accountService.getAccountById(order.getEaterId()).orElse(null);
+        Account cookAccount = accountService.getAccountById(order.getCookId()).orElse(null);
+
+//        if(eaterAccount == null || cookAccount == null) {
+//            map.put("success", "false");
+//            return map;
+//        }
+        order.setPickUpName("Phil");
+        order.setPickUpContact("267 471 3914");
         order.setDatetime(new Date());
         order.setOrderId(new ObjectId().toString());
+        order.setCookDisplayName(cookAccount.getFirstName() + " " + cookAccount.getLastName());
 
         Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(new Date()); // sets calendar time/date
