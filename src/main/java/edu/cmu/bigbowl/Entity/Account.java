@@ -26,6 +26,10 @@ public class Account {
     private Boolean isCook;
     @Field("createTime")
     private Date createTime;
+    @Field("cookId")
+    private String cookId;
+    @Field("eaterId")
+    private String eaterId;
 
     public Account(String accountId, String email, String password, String firstName, String lastName, String phone, Boolean isEater, Boolean isCook) {
         this.accountId = accountId;
@@ -36,6 +40,8 @@ public class Account {
         this.phone = phone;
         this.isEater = isEater;
         this.isCook = isCook;
+        this.cookId = "";
+        this.eaterId = "";
     }
 
     public String getAccountId() {
@@ -86,19 +92,19 @@ public class Account {
         this.phone = phone;
     }
 
-    public Boolean getEater() {
-        return isEater;
+    public Boolean getIsEater() {
+        return this.isEater;
     }
 
-    public void setEater(Boolean eater) {
+    public void setIsEater(Boolean eater) {
         isEater = eater;
     }
 
-    public Boolean getCook() {
-        return isCook;
+    public Boolean getIsCook() {
+        return this.isCook;
     }
 
-    public void setCook(Boolean cook) {
+    public void setIsCook(Boolean cook) {
         isCook = cook;
     }
 
@@ -108,5 +114,21 @@ public class Account {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCookId() {
+        return cookId;
+    }
+
+    public void setCookId(String cookId) {
+        this.cookId = cookId;
+    }
+
+    public String getEaterId() {
+        return eaterId;
+    }
+
+    public void setEaterId(String eaterId) {
+        this.eaterId = eaterId;
     }
 }
