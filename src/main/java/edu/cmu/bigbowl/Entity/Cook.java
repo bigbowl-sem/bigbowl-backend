@@ -3,12 +3,18 @@ package edu.cmu.bigbowl.Entity;
 import com.mongodb.client.model.geojson.GeoJsonObjectType;
 import com.mongodb.client.model.geojson.Point;
 import net.minidev.json.JSONObject;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,9 +63,11 @@ public class Cook {
     private Double avgPrice;
     @Field("totalRated")
     private Integer totalRated;
+    @Field("img")
+    private byte img[];
 
 
-    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng, String menuId, String displayName) {
+    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng, String menuId, String displayName) throws IOException {
         this.cookId = cookId;
         this.permitNumber = permitNumber;
         this.address1 = address1;
@@ -85,6 +93,13 @@ public class Cook {
         this.totalItem = 0;
         this.avgPrice = 0.0;
         this.totalRated = 0;
+        //File file = new File("F:\\NetJS\\Articles.txt");
+
+        // Using java.io.FileInputStream
+        //byte[] bArray = readFileToByteArray(file);
+        //File imageFile = new File("resource/cmu.jpg");
+        Path fileLocation = Paths.get("/Users/yflou/Workspace/CMU_MSSM/19fall/Software_Engineering_Management_49786/bigbowl-backend/src/main/java/edu/cmu/bigbowl/resource/cmu.jpg");
+        this.img = Files.readAllBytes(fileLocation);
     }
 /*
     public Cook(String cookId, Double lat, Double lng) {
@@ -265,5 +280,13 @@ public class Cook {
 
     public void setTotalRated(Integer totalRated) {
         this.totalRated = totalRated;
+    }
+
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
     }
 }
