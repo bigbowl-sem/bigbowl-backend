@@ -10,6 +10,7 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -123,7 +124,7 @@ public class CookController {
     }
 
     @RequestMapping(value = "/fake", method = RequestMethod.POST)
-    public Collection<Cook> insertCook() {
+    public Collection<Cook> insertCook() throws IOException {
         cookService.postFakeCook();
         return cookService.getAllCooks();
     }

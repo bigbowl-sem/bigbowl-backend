@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class TestController {
 
     // GET
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllTest() {
+    public String getAllTest() throws IOException {
         String res = "";
         res += "[Account Service]\r\n";
         res += testAccountFunctions();
@@ -159,7 +160,7 @@ public class TestController {
     }
 
     @RequestMapping(value = "/cook", method = RequestMethod.GET)
-    public String testCookFunctions(){
+    public String testCookFunctions() throws IOException {
         String ans = "";
         Integer testNum = 0;
         Integer passNum = 0;
@@ -533,8 +534,7 @@ public class TestController {
 
     // POST
     @RequestMapping(method = RequestMethod.POST)
-    public void postFakeAll()
-    {
+    public void postFakeAll() throws IOException {
         accountService.postFakeAccount();
         cookService.postFakeCook();
         itemService.postFakeItem();

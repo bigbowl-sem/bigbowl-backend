@@ -14,6 +14,7 @@ import org.springframework.data.geo.Point;
 import org.springframework.data.geo.Distance;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -33,7 +34,7 @@ public class CookService {
         return cookDao.save(cook);
     }
 
-    public void postFakeCook() {
+    public void postFakeCook() throws IOException {
         Integer numOfCook = 50;
         Double latMin, latMax, lngMin, lngMax, ratingMin, ratingMax;
         latMin = 37.775902;
