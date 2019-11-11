@@ -4,12 +4,79 @@ import edu.cmu.bigbowl.Entity.Item;
 import edu.cmu.bigbowl.Entity.Menu;
 import edu.cmu.bigbowl.Service.ItemService;
 import edu.cmu.bigbowl.Service.MenuService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+
+class AddItemToMenuRequest {
+    private String menuId;
+    private String name;
+    private String description;
+    private Integer quantity;
+    private Double unitPrice;
+    private String cuisine;
+
+    public AddItemToMenuRequest(String menuId, String name, String description, Integer quantity, Double unitPrice, String cuisine) {
+        this.menuId = menuId;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.cuisine = cuisine;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
+    }
+}
 
 @RestController
 @RequestMapping("/menu")
@@ -62,6 +129,19 @@ public class MenuController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Menu insertMenu(@RequestBody Menu menu) {
         return menuService.postMenu(menu);
+    }
+
+    @RequestMapping(path = "/item", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Menu insertItemIntoMenu(@RequestBody AddItemToMenuRequest request) {
+        String itemId = new ObjectId().toString();
+        Item newItem = new Item(itemId, request.getName(),
+                request.getDescription(), request.getQuantity(),
+                request.getUnitPrice(), request.getCuisine(), request.getMenuId());
+        itemService.postItem(newItem);
+        Menu menu = menuService.getMenuById(request.getMenuId()).orElse(null);
+        menu.addItemId(newItem.getItemId());
+        menuService.updateMenuById(request.getMenuId(), menu);
+        return menu;
     }
 
     @RequestMapping(value = "/fake", method = RequestMethod.POST)

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -71,7 +72,7 @@ public class AccountController {
     // POST
     // needs some debugging!
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Account insertAccount(@RequestBody Account account) {
+    public Account insertAccount(@RequestBody Account account) throws IOException {
         Account existingAccount = accountService.getAccountById(account.getAccountId()).orElse(null);
         if(existingAccount != null) {
             if(existingAccount.getIsEater() != account.getIsEater()) {
@@ -79,13 +80,13 @@ public class AccountController {
                 account.setEaterId(createEater());
             } else if (existingAccount.getIsCook() != account.getIsCook()){
                 account.setIsCook(true);
-                account.setCookId(createCook());
+                account.setCookId(createCook(account));
             }
             return accountService.updateAccountById(account.getAccountId(), account).orElse(null);
         }
 
         if(account.getIsCook()) {
-            account.setCookId(createCook());
+            account.setCookId(createCook(account));
         } else if (account.getIsEater()) {
             account.setEaterId(createEater());
         }
@@ -99,12 +100,12 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
 
-    private String createCook() {
+    private String createCook(Account account) throws IOException {
         String id = new ObjectId().toString();
         Cook theCook = new Cook(id, "mypermit",
                 "17 Mission Street", "", "San Francisco",
                 "CA", 94043, "USA", null, 0.0, false,
-                "I'm a cook, man.", 37.794565, -122.40783, id);
+                "I'm a cook, man.", 37.794565, -122.40783, id, account.getFirstName());
         cookService.postCook(theCook);
 
         Menu menu = new Menu(
