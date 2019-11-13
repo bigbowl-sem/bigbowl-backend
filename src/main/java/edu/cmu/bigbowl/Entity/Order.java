@@ -32,6 +32,8 @@ public class Order {
     private boolean eaterConfirmed;
     @Field("cookConfirmed")
     private boolean cookConfirmed;
+    @Field("cookDisplayName")
+    private String cookDisplayName;
 
     public Order(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime) {
         this.orderId = orderId;
@@ -45,6 +47,7 @@ public class Order {
         this.pickUpTime = pickUpTime;
         this.setEaterConfirmed(false);
         this.setCookConfirmed(false);
+        this.setCookDisplayName("");
     }
 
     public void setOrderWithCart(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime, Cart cart) {
@@ -152,5 +155,13 @@ public class Order {
 
     public void setCookConfirmed(boolean cookConfirmed) {
         this.cookConfirmed = cookConfirmed;
+    }
+
+    public String getCookDisplayName() {
+        return cookDisplayName;
+    }
+
+    public void setCookDisplayName(String cookDisplayName) {
+        this.cookDisplayName = cookDisplayName;
     }
 }
