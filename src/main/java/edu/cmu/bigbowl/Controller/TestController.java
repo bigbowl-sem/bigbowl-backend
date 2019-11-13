@@ -538,6 +538,7 @@ public class TestController {
         accountService.postFakeAccount();
         cookService.postFakeCook();
         itemService.postFakeItem();
+        eaterService.postFakeEaters();
         reviewService.postFakeReview();
     }
 }

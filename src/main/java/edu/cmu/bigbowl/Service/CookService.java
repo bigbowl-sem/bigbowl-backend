@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.*;
 
+import static java.lang.Math.abs;
+
 @Service
 public class CookService {
 
@@ -57,17 +59,35 @@ public class CookService {
             radius = fakeCookGen.getAsNumber("radius").doubleValue();
         }
         */
+        ArrayList<String> imgurUrls = new ArrayList<>();
+        imgurUrls.add("https://i.imgur.com/Qzr4TXJ.jpg");
+        imgurUrls.add("https://i.imgur.com/pfLc6eH.jpg");
+        imgurUrls.add("https://i.imgur.com/wWbEEoX.jpg");
+        imgurUrls.add("https://i.imgur.com/cPiXJKn.jpg");
+        imgurUrls.add("https://i.imgur.com/FAh84zF.jpg");
+        imgurUrls.add("https://i.imgur.com/1TBQJlK.jpg");
+        imgurUrls.add("https://i.imgur.com/avkzX5m.jpg");
+        imgurUrls.add("https://i.imgur.com/PG15UCy.jpg");
+        imgurUrls.add("https://i.imgur.com/O25v4ZF.jpg");
+        imgurUrls.add("https://i.imgur.com/HL7uWFf.jpg");
+        imgurUrls.add("https://i.imgur.com/OgL2gYD.jpg");
+        imgurUrls.add("https://i.imgur.com/iMbpo41.jpg");
+        imgurUrls.add("https://i.imgur.com/GmbRLc5.jpg");
+        imgurUrls.add("https://i.imgur.com/xsmz7IX.jpg");
+        imgurUrls.add("https://i.imgur.com/tFlYY0j.jpg");
+        imgurUrls.add("https://i.imgur.com/epDkkj1.jpg");
+
 
         for (Integer cnt = 0; cnt < numOfCook; cnt += 1)
         {
-
             Random r = new Random();
             Double latValue = latMin + (latMax - latMin) * r.nextDouble();
             Double lngValue = lngMin + (lngMax - lngMin) * r.nextDouble();
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
+            Integer imgurUrlNum = abs(r.nextInt()) % imgurUrls.size();
             Account account = accountDao.findById("Fake" + cnt).get();
             String displayName = account.getFirstName() + " " + account.getLastName();
-            Cook cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, "Http://");
+            Cook cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, imgurUrls.get(imgurUrlNum));
             Menu menu = new Menu("Fake" + cnt, new Date(), Boolean.TRUE, null, Boolean.TRUE, new ArrayList<>());
             menuDao.save(menu);
             cookDao.save(cook);

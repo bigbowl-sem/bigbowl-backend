@@ -49,7 +49,7 @@ public class ItemService {
         names.add("Thai Curry");
         names.add("Udon Noodle");
         names.add("Ramen");
-        names.add("Taso's Chicken");
+        names.add("Tso's Chicken");
         names.add("Dumpling");
         names.add("Pasta");
         names.add("Bistro");
@@ -57,6 +57,21 @@ public class ItemService {
         names.add("Hot Dog");
         names.add("Taco");
         names.add("Burrito");
+
+
+        ArrayList<String> imgurUrls = new ArrayList<>();
+        imgurUrls.add("https://i.imgur.com/nc24EeD.jpg");
+        imgurUrls.add("https://i.imgur.com/j8Ex0eF.jpg");
+        imgurUrls.add("https://i.imgur.com/vXCvVIc.jpg");
+        imgurUrls.add("https://i.imgur.com/qRMqdNg.jpg");
+        imgurUrls.add("https://i.imgur.com/oP3vCcj.jpg");
+        imgurUrls.add("https://i.imgur.com/e83CC0K.jpg");
+        imgurUrls.add("https://i.imgur.com/Xd4zQyR.jpg");
+        imgurUrls.add("https://i.imgur.com/kD6C9KJ.jpg");
+        imgurUrls.add("https://i.imgur.com/VUEGlFp.jpg");
+        imgurUrls.add("https://i.imgur.com/9XyhKhS.jpg");
+        imgurUrls.add("https://i.imgur.com/MTYGmpM.jpg");
+        imgurUrls.add("https://i.imgur.com/Mvtd3TZ.jpg");
 
 
         for (Integer cnt = 0; cnt < numOfAccount; cnt += 1) {
@@ -78,7 +93,7 @@ public class ItemService {
             optMenu.ifPresent(theMenu -> theMenu.addItemId(itemId));
             optMenu.ifPresent(theMenu -> menuDao.save(theMenu));
 
-            Item item = new Item(itemId, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt, "Http://");
+            Item item = new Item(itemId, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt, imgurUrls.get(itemNum));
             itemDao.save(item);
         }
     }
