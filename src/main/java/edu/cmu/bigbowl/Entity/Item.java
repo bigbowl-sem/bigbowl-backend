@@ -20,6 +20,8 @@ public class Item {
     private String cuisine;
     @Field("cookId")
     private String cookId;
+    @Field("imageId")
+    private String imageId;
 
     public Item(String itemId, String name, String description, Integer quantity, Double unitPrice, String cuisine, String cookId) {
         this.itemId = itemId;
@@ -85,5 +87,13 @@ public class Item {
 
     public void setCookId(String cookId) {
         this.cookId = cookId;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 }

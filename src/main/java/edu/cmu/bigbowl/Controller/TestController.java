@@ -36,6 +36,8 @@ public class TestController {
     private OrderService orderService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private ImageService imageService;
 
     // GET
     @RequestMapping(method = RequestMethod.GET)
@@ -539,5 +541,6 @@ public class TestController {
         cookService.postFakeCook();
         itemService.postFakeItem();
         reviewService.postFakeReview();
+        imageService.postFakeImage();
     }
 }

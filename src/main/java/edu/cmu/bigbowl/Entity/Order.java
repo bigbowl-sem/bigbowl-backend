@@ -34,8 +34,6 @@ public class Order {
     private boolean eaterConfirmed;
     @Field("cookConfirmed")
     private boolean cookConfirmed;
-    @Field("cookDisplayName")
-    private String cookDisplayName;
 
     public Order(String orderId, String eaterId, String cookId, Date datetime, Double tax, Date readyTime, String pickUpName, String pickUpContact, Date pickUpTime) {
         this.orderId = orderId;

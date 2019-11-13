@@ -93,27 +93,12 @@ public class Cook {
         this.totalItem = 0;
         this.avgPrice = 0.0;
         this.totalRated = 0;
-        //File file = new File("F:\\NetJS\\Articles.txt");
 
         // Using java.io.FileInputStream
-        //byte[] bArray = readFileToByteArray(file);
-        //File imageFile = new File("resource/cmu.jpg");
-//        Path fileLocation = Paths.get("/Users/yflou/Workspace/CMU_MSSM/19fall/Software_Engineering_Management_49786/bigbowl-backend/src/main/java/edu/cmu/bigbowl/resource/cmu.jpg");
-//        this.img = Files.readAllBytes(fileLocation);
+        //Path fileLocation = Paths.get("/Users/yflou/Workspace/CMU_MSSM/19fall/Software_Engineering_Management_49786/bigbowl-backend/src/main/java/edu/cmu/bigbowl/resource/cmu.jpg");
+        //this.img = Files.readAllBytes(fileLocation);
     }
-/*
-    public Cook(String cookId, Double lat, Double lng) {
-        this.cookId = cookId;
-        this.lat = lat;
-        this.lng = lng;
-        ArrayList<Double> coordinates = new ArrayList<Double>();
-        coordinates.add(lng);
-        coordinates.add(lat);
-        this.location = new JSONObject();
-        this.location.appendField("type", "Point");
-        this.location.appendField("coordinates", coordinates);
-    }
-*/
+
     public String getCookId() {
         return cookId;
     }
