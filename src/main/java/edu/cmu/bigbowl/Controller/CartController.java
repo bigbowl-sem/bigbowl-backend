@@ -1,12 +1,15 @@
 package edu.cmu.bigbowl.Controller;
 
 import edu.cmu.bigbowl.Entity.Cart;
+import edu.cmu.bigbowl.Entity.Item;
 import edu.cmu.bigbowl.Service.CartService;
+import edu.cmu.bigbowl.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+
 
 @RestController
 @RequestMapping("/cart")
@@ -14,6 +17,9 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private ItemService itemService;
 
     // GET
     @RequestMapping(method = RequestMethod.GET)
@@ -63,4 +69,21 @@ public class CartController {
 
         return cartService.updateCartById(cart.getCartId(), cart).get();
     }
+
+    @RequestMapping(path="/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean addItemToCart(@RequestParam(value = "cartId") String cartId, @RequestParam(value = "itemId") String itemId) {
+        Item item = itemService.getItemById(itemId).orElse(null);
+        if(item != null) {
+            cartService.addItemToCart(cartId, item);
+        }
+        return true;
+    }
+
+    @RequestMapping(path="/remove", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public boolean removeItemFromCart(@RequestParam(value = "cartId") String cartId, @RequestParam(value = "itemId") String itemId) {
+        cartService.removeItemFromCart(cartId, itemId);
+        return true;
+    }
+
+
 }
