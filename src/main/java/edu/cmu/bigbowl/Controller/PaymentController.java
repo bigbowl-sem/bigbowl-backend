@@ -75,6 +75,7 @@ public class PaymentController {
     public Order createOrder(@RequestBody Order order) {
         HashMap<String, String> map = new HashMap<>();
         //need some security here, but whatever
+
         Account account = accountService.getAccountByEaterId(order.getEaterId()).orElse(null);
         if(account == null) {
             map.put("success", "false");

@@ -28,6 +28,8 @@ public class Order {
     private Date pickUpTime;
     @Field("cartId")
     private String cartId;
+    @Field("cookDisplayName")
+    private String cookDisplayName;
     @Field("eaterConfirmed")
     private boolean eaterConfirmed;
     @Field("cookConfirmed")
@@ -45,6 +47,7 @@ public class Order {
         this.pickUpName = pickUpName;
         this.pickUpContact = pickUpContact;
         this.pickUpTime = pickUpTime;
+        this.cookDisplayName = "The Cook's Name";
         this.setEaterConfirmed(false);
         this.setCookConfirmed(false);
         this.setCookDisplayName("");
