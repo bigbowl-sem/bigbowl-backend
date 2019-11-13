@@ -20,10 +20,10 @@ public class Item {
     private String cuisine;
     @Field("cookId")
     private String cookId;
-    @Field("imageId")
-    private String imageId;
+    @Field("imgurUrl")
+    private String imgurUrl;
 
-    public Item(String itemId, String name, String description, Integer quantity, Double unitPrice, String cuisine, String cookId) {
+    public Item(String itemId, String name, String description, Integer quantity, Double unitPrice, String cuisine, String cookId, String imgurUrl) {
         this.itemId = itemId;
         this.name = name;
         this.description = description;
@@ -31,6 +31,7 @@ public class Item {
         this.unitPrice = unitPrice;
         this.cuisine = cuisine;
         this.cookId = cookId;
+        this.imgurUrl = imgurUrl;
     }
 
     public String getItemId() {
@@ -89,11 +90,11 @@ public class Item {
         this.cookId = cookId;
     }
 
-    public String getImageId() {
-        return imageId;
+    public String getImgurUrl() {
+        return imgurUrl;
     }
 
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setImgurUrl(String imgurUrl) {
+        this.imgurUrl = imgurUrl;
     }
 }

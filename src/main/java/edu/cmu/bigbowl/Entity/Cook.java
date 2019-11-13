@@ -1,20 +1,12 @@
 package edu.cmu.bigbowl.Entity;
 
-import com.mongodb.client.model.geojson.GeoJsonObjectType;
-import com.mongodb.client.model.geojson.Point;
 import net.minidev.json.JSONObject;
-import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +55,11 @@ public class Cook {
     private Double avgPrice;
     @Field("totalRated")
     private Integer totalRated;
-    @Field("img")
-    private byte img[];
+    @Field("imgurUrl")
+    private String imgurUrl;
 
 
-    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng, String menuId, String displayName) throws IOException {
+    public Cook(String cookId, String permitNumber, String address1, String address2, String city, String state, int zipCode, String country, List<String> orderList, Double rating, Boolean verified, String about, Double lat, Double lng, String menuId, String displayName, String imgurUrl) {
         this.cookId = cookId;
         this.permitNumber = permitNumber;
         this.address1 = address1;
@@ -93,10 +85,7 @@ public class Cook {
         this.totalItem = 0;
         this.avgPrice = 0.0;
         this.totalRated = 0;
-
-        // Using java.io.FileInputStream
-        //Path fileLocation = Paths.get("/Users/yflou/Workspace/CMU_MSSM/19fall/Software_Engineering_Management_49786/bigbowl-backend/src/main/java/edu/cmu/bigbowl/resource/cmu.jpg");
-        //this.img = Files.readAllBytes(fileLocation);
+        this.imgurUrl = imgurUrl;
     }
 
     public String getCookId() {
@@ -267,11 +256,11 @@ public class Cook {
         this.totalRated = totalRated;
     }
 
-    public byte[] getImg() {
-        return img;
+    public String getImgurUrl() {
+        return imgurUrl;
     }
 
-    public void setImg(byte[] img) {
-        this.img = img;
+    public void setImgurUrl(String imgurUrl) {
+        this.imgurUrl = imgurUrl;
     }
 }

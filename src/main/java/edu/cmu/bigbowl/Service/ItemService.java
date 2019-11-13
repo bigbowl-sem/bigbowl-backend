@@ -78,7 +78,7 @@ public class ItemService {
             optMenu.ifPresent(theMenu -> theMenu.addItemId(itemId));
             optMenu.ifPresent(theMenu -> menuDao.save(theMenu));
 
-            Item item = new Item(itemId, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt);
+            Item item = new Item(itemId, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt, "Http://");
             itemDao.save(item);
         }
     }

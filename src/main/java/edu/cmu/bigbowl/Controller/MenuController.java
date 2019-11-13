@@ -19,14 +19,16 @@ class AddItemToMenuRequest {
     private Integer quantity;
     private Double unitPrice;
     private String cuisine;
+    private String imageUrl;
 
-    public AddItemToMenuRequest(String menuId, String name, String description, Integer quantity, Double unitPrice, String cuisine) {
+    public AddItemToMenuRequest(String menuId, String name, String description, Integer quantity, Double unitPrice, String cuisine, String imageUrl) {
         this.menuId = menuId;
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
         this.cuisine = cuisine;
+        this.imageUrl = imageUrl;
     }
 
     public String getMenuId() {
@@ -75,6 +77,14 @@ class AddItemToMenuRequest {
 
     public void setCuisine(String cuisine) {
         this.cuisine = cuisine;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
 
@@ -136,7 +146,7 @@ public class MenuController {
         String itemId = new ObjectId().toString();
         Item newItem = new Item(itemId, request.getName(),
                 request.getDescription(), request.getQuantity(),
-                request.getUnitPrice(), request.getCuisine(), request.getMenuId());
+                request.getUnitPrice(), request.getCuisine(), request.getMenuId(), request.getImageUrl());
         itemService.postItem(newItem);
         Menu menu = menuService.getMenuById(request.getMenuId()).orElse(null);
         menu.addItemId(newItem.getItemId());
