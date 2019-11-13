@@ -34,7 +34,7 @@ public class ItemService {
 
     public void postFakeItem(){
         Integer numOfAccount = 50;
-        Double pMin = 0.0;
+        Double pMin = 1.0;
         Double pMax = 5.0;
         ArrayList<String> cuisines = new ArrayList<>();
         cuisines.add("Thai");

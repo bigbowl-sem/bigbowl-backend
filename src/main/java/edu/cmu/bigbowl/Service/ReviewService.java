@@ -28,7 +28,7 @@ public class ReviewService {
     public void postFakeReview() {
         Random r = new Random();
         Integer numOfReview = 50;
-        Double ratingMin = 0.0;
+        Double ratingMin = 2.0;
         Double ratingMax = 5.0;
         for (Integer cnt = 0; cnt < numOfReview; cnt += 1)
         {

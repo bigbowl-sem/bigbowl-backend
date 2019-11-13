@@ -60,23 +60,32 @@ public class CookService {
         }
         */
         ArrayList<String> imgurUrls = new ArrayList<>();
-        imgurUrls.add("https://i.imgur.com/Qzr4TXJ.jpg");
-        imgurUrls.add("https://i.imgur.com/pfLc6eH.jpg");
-        imgurUrls.add("https://i.imgur.com/wWbEEoX.jpg");
-        imgurUrls.add("https://i.imgur.com/cPiXJKn.jpg");
-        imgurUrls.add("https://i.imgur.com/FAh84zF.jpg");
-        imgurUrls.add("https://i.imgur.com/1TBQJlK.jpg");
-        imgurUrls.add("https://i.imgur.com/avkzX5m.jpg");
-        imgurUrls.add("https://i.imgur.com/PG15UCy.jpg");
-        imgurUrls.add("https://i.imgur.com/O25v4ZF.jpg");
-        imgurUrls.add("https://i.imgur.com/HL7uWFf.jpg");
-        imgurUrls.add("https://i.imgur.com/OgL2gYD.jpg");
-        imgurUrls.add("https://i.imgur.com/iMbpo41.jpg");
-        imgurUrls.add("https://i.imgur.com/GmbRLc5.jpg");
-        imgurUrls.add("https://i.imgur.com/xsmz7IX.jpg");
-        imgurUrls.add("https://i.imgur.com/tFlYY0j.jpg");
-        imgurUrls.add("https://i.imgur.com/epDkkj1.jpg");
+        imgurUrls.add("https://i.imgur.com/wWbEEoX.jpg");//m
+        imgurUrls.add("https://i.imgur.com/cPiXJKn.jpg");//m
+        imgurUrls.add("https://i.imgur.com/FAh84zF.jpg");//m
+        imgurUrls.add("https://i.imgur.com/avkzX5m.jpg");//m
+        imgurUrls.add("https://i.imgur.com/HL7uWFf.jpg");//m
+        imgurUrls.add("https://i.imgur.com/OgL2gYD.jpg");//m
+        imgurUrls.add("https://i.imgur.com/xsmz7IX.jpg");//m
+        imgurUrls.add("https://i.imgur.com/tFlYY0j.jpg");//g
+        imgurUrls.add("https://i.imgur.com/epDkkj1.jpg");//g
+        imgurUrls.add("https://i.imgur.com/Qzr4TXJ.jpg");//g
+        imgurUrls.add("https://i.imgur.com/pfLc6eH.jpg");//g
+        imgurUrls.add("https://i.imgur.com/mUM1ww3.jpg");//g
+        imgurUrls.add("https://i.imgur.com/iMbpo41.jpg");//g
+        imgurUrls.add("https://i.imgur.com/GmbRLc5.jpg");//g
+        imgurUrls.add("https://i.imgur.com/PG15UCy.jpg");//g
+        imgurUrls.add("https://i.imgur.com/O25v4ZF.jpg");//g
+        imgurUrls.add("https://i.imgur.com/1TBQJlK.jpg");//g
 
+        ArrayList<String> firstName = new ArrayList<>();
+        firstName.add("Emily");
+        firstName.add("Jen");
+        firstName.add("Martha");
+        firstName.add("Margot");
+        firstName.add("Emma");
+        firstName.add("Britney");
+        firstName.add("Hillary");
 
         for (Integer cnt = 0; cnt < numOfCook; cnt += 1)
         {
@@ -87,6 +96,10 @@ public class CookService {
             Integer imgurUrlNum = abs(r.nextInt()) % imgurUrls.size();
             Account account = accountDao.findById("Fake" + cnt).get();
             String displayName = account.getFirstName() + " " + account.getLastName();
+            while (firstName.contains(account.getFirstName()) && imgurUrlNum < 7)
+            {
+                imgurUrlNum = abs(r.nextInt()) % imgurUrls.size();
+            }
             Cook cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, imgurUrls.get(imgurUrlNum));
             Menu menu = new Menu("Fake" + cnt, new Date(), Boolean.TRUE, null, Boolean.TRUE, new ArrayList<>());
             menuDao.save(menu);
