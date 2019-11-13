@@ -90,16 +90,16 @@ public class CookService {
         firstNameFemale.add("Hillary");
 
         ArrayList<String> firstNameMale = new ArrayList<>();
-        firstNameFemale.add("Jack");
-        firstNameFemale.add("Jackson");
-        firstNameFemale.add("Allen");
-        firstNameFemale.add("Shawn");
-        firstNameFemale.add("Bob");
-        firstNameFemale.add("Evan");
-        firstNameFemale.add("Frank");
-        firstNameFemale.add("Gorge");
-        firstNameFemale.add("Sam");
-        firstNameFemale.add("Ivan");
+        firstNameMale.add("Jack");
+        firstNameMale.add("Jackson");
+        firstNameMale.add("Allen");
+        firstNameMale.add("Shawn");
+        firstNameMale.add("Bob");
+        firstNameMale.add("Evan");
+        firstNameMale.add("Frank");
+        firstNameMale.add("Gorge");
+        firstNameMale.add("Sam");
+        firstNameMale.add("Ivan");
 
         for (Integer cnt = 0; cnt < numOfCook; cnt += 1)
         {
