@@ -141,7 +141,7 @@ public class MenuController {
         Menu menu = menuService.getMenuById(request.getMenuId()).orElse(null);
         menu.addItemId(newItem.getItemId());
         menuService.updateMenuById(request.getMenuId(), menu);
-        return menu;
+        return itemService.getItemByCookId(request.getMenuId());
     }
 
     @RequestMapping(value = "/fake", method = RequestMethod.POST)

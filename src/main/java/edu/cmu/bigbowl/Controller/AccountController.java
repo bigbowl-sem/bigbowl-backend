@@ -82,7 +82,8 @@ public class AccountController {
                 account.setIsCook(true);
                 account.setCookId(createCook(account));
             }
-            return accountService.updateAccountById(account.getAccountId(), account).orElse(null);
+            accountService.updateAccountById(account.getAccountId(), account).orElse(null);
+            return accountService.getAccountById(account.getAccountId()).orElse(null);
         }
 
         if(account.getIsCook()) {
@@ -107,7 +108,6 @@ public class AccountController {
                 "CA", 94043, "USA", null, 0.0, false,
                 "I'm a cook, man.", 37.794565, -122.40783, id, account.getFirstName());
         cookService.postCook(theCook);
-
         Menu menu = new Menu(
                 id, new Date(), false, null, false, new ArrayList()
         );
