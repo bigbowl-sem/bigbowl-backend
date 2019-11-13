@@ -167,7 +167,7 @@ public class TestController {
         // test post and get
         testNum += 2;
         Cook cook = new Cook("TESTING", "T","E","S","T","T",0,
-                "E",null, 5.0 ,Boolean.FALSE,"T", 37.376202, -122.101392, "T", "E");
+                "E",null, 5.0 ,Boolean.FALSE,"T", 37.376202, -122.101392, "T", "E", null);
         cookService.postCook(cook);
         Cook getCook = cookService.getCookById("TESTING").orElse(null);
         if (getCook != null){
@@ -237,7 +237,7 @@ public class TestController {
 
         // test post and get
         testNum += 2;
-        Eater eater = new Eater("TESTING", 1.0);
+        Eater eater = new Eater("TESTING", 1.0, null);
         eaterService.postEater(eater);
         Eater getEater = eaterService.getEaterById("TESTING").orElse(null);
         if (getEater != null){
@@ -285,7 +285,7 @@ public class TestController {
 
         // test post and get
         testNum += 2;
-        Item item = new Item("TESTING", "EE","TT", 1, 2.0, "T", "E");
+        Item item = new Item("TESTING", "EE","TT", 1, 2.0, "T", "E", null);
         itemService.postItem(item);
         Item getItem = itemService.getItemById("TESTING").orElse(null);
         if (getItem != null){

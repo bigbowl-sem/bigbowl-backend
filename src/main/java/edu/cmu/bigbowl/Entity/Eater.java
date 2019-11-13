@@ -10,10 +10,13 @@ public class Eater {
     private String eaterId;
     @Field("rating")
     private Double rating;
+    @Field("imgurUrl")
+    private String imgurUrl;
 
-    public Eater(String eaterId, Double rating) {
+    public Eater(String eaterId, Double rating, String imgurUrl) {
         this.eaterId = eaterId;
         this.rating = rating;
+        this.imgurUrl = imgurUrl;
     }
 
     public String getEaterId() {
@@ -30,5 +33,13 @@ public class Eater {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public String getImgurUrl() {
+        return imgurUrl;
+    }
+
+    public void setImgurUrl(String imgurUrl) {
+        this.imgurUrl = imgurUrl;
     }
 }

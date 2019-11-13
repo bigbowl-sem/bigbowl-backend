@@ -106,7 +106,7 @@ public class AccountController {
         Cook theCook = new Cook(id, "mypermit",
                 "17 Mission Street", "", "San Francisco",
                 "CA", 94043, "USA", null, 0.0, false,
-                "I'm a cook, man.", 37.794565, -122.40783, id, account.getFirstName());
+                "I'm a cook, man.", 37.794565, -122.40783, id, account.getFirstName(), null);
         cookService.postCook(theCook);
         Menu menu = new Menu(
                 id, new Date(), false, null, false, new ArrayList()
@@ -118,7 +118,7 @@ public class AccountController {
     private String createEater() {
         String id = new ObjectId().toString();
         Eater theEater = new Eater(
-                id, 0.0
+                id, 0.0, null
         );
         Cart newCart = new Cart(
                 id, new ArrayList(), 0.00

@@ -67,7 +67,7 @@ public class CookService {
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
             Account account = accountDao.findById("Fake" + cnt).get();
             String displayName = account.getFirstName() + " " + account.getLastName();
-            Cook cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName);
+            Cook cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, "Http://");
             Menu menu = new Menu("Fake" + cnt, new Date(), Boolean.TRUE, null, Boolean.TRUE, new ArrayList<>());
             menuDao.save(menu);
             cookDao.save(cook);
