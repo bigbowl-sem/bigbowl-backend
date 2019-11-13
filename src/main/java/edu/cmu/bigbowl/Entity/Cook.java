@@ -98,8 +98,8 @@ public class Cook {
         // Using java.io.FileInputStream
         //byte[] bArray = readFileToByteArray(file);
         //File imageFile = new File("resource/cmu.jpg");
-        Path fileLocation = Paths.get("/Users/yflou/Workspace/CMU_MSSM/19fall/Software_Engineering_Management_49786/bigbowl-backend/src/main/java/edu/cmu/bigbowl/resource/cmu.jpg");
-        this.img = Files.readAllBytes(fileLocation);
+//        Path fileLocation = Paths.get("/Users/yflou/Workspace/CMU_MSSM/19fall/Software_Engineering_Management_49786/bigbowl-backend/src/main/java/edu/cmu/bigbowl/resource/cmu.jpg");
+//        this.img = Files.readAllBytes(fileLocation);
     }
 /*
     public Cook(String cookId, Double lat, Double lng) {

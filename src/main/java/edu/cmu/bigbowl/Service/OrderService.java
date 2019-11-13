@@ -5,6 +5,7 @@ import edu.cmu.bigbowl.Entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +50,21 @@ public class OrderService {
             return null;
         }
     }
+
+    public List<Order> getOrderByCookConfirmation(String cookId, boolean isConfirmedByCook) {
+        List<Order> orders = this.getOrderByCookId(cookId);
+        List<Order> toReturn = new ArrayList();
+        if(orders != null) {
+            for(Order order: orders) {
+                if(order.isCookConfirmed() == isConfirmedByCook) {
+                    toReturn.add(order);
+                }
+            }
+        }
+
+        return toReturn;
+    }
+
 
     public Optional<Order> updateOrderById(String id, Order order) {
         Optional<Order> optOrder = orderDao.findById(id);

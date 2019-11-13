@@ -2,6 +2,7 @@ package edu.cmu.bigbowl.Controller;
 
 import edu.cmu.bigbowl.Entity.Order;
 import edu.cmu.bigbowl.Entity.Review;
+import edu.cmu.bigbowl.Service.OrderService;
 import edu.cmu.bigbowl.Service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,6 +17,9 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private OrderService orderService;
 
     // GET
     @RequestMapping(method = RequestMethod.GET)
@@ -71,7 +75,11 @@ public class ReviewController {
 
     // POST
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Review insertReview(@RequestBody Review review) {
+    public Review insertReview(@RequestBody Review review)
+    {
+        Order theOrder = orderService.getOrderById(review.getOrderId()).orElse(null);
+        theOrder.setEaterConfirmed(true);
+        orderService.updateOrderById(review.getOrderId(), theOrder);
         return reviewService.postReview(review);
     }
 

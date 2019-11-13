@@ -7,8 +7,10 @@ import java.util.HashMap;
 
 import edu.cmu.bigbowl.Entity.Account;
 import edu.cmu.bigbowl.Entity.Cart;
+import edu.cmu.bigbowl.Entity.Cook;
 import edu.cmu.bigbowl.Service.AccountService;
 import edu.cmu.bigbowl.Service.CartService;
+import edu.cmu.bigbowl.Service.CookService;
 import edu.cmu.bigbowl.Service.OrderService;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -33,6 +35,8 @@ public class PaymentController {
     private AccountService accountService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CookService cookService;
 
     @RequestMapping(method = RequestMethod.POST)
     @JsonSerialize
@@ -42,18 +46,16 @@ public class PaymentController {
         Cart theCart = cartService.getCartById(cartId).orElse(null);
         HashMap<String, String> map = new HashMap<>();
 
-//        if(theCart == null) {
-//            map.put("error with cart", "true");
-//            return map;
-//        }
+        if(theCart == null) {
+            map.put("error with cart", "true");
+        }
 //        PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
 //                .setCurrency("usd").setAmount(theCart.getTotalPrice().longValue())
 //                .build();
 
         PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
-        .setCurrency("usd").setAmount((long) 1099)
-        .build();
-
+                .setCurrency("usd").setAmount(4990L)
+                .build();
         PaymentIntent intent = null;
         try {
             intent = PaymentIntent.create(createParams);
@@ -70,31 +72,30 @@ public class PaymentController {
 
     @RequestMapping(path = "/complete", method = RequestMethod.POST)
     @JsonSerialize
-    public Map<String, String> createOrder(@RequestBody Order order) {
+    public Order createOrder(@RequestBody Order order) {
         HashMap<String, String> map = new HashMap<>();
         //need some security here, but whatever
-        Account eaterAccount = accountService.getAccountById(order.getEaterId()).orElse(null);
-        Account cookAccount = accountService.getAccountById(order.getCookId()).orElse(null);
 
-//        if(eaterAccount == null || cookAccount == null) {
-//            map.put("success", "false");
-//            return map;
-//        }
-        order.setPickUpName("Phil");
-        order.setPickUpContact("267 471 3914");
+        Account account = accountService.getAccountByEaterId(order.getEaterId()).orElse(null);
+        if(account == null) {
+            map.put("success", "false");
+            return null;
+        }
+        order.setPickUpName(account.getFirstName());
+        order.setPickUpContact(account.getPhone());
         order.setDatetime(new Date());
         order.setOrderId(new ObjectId().toString());
-        order.setCookDisplayName(cookAccount.getFirstName() + " " + cookAccount.getLastName());
-
         Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(new Date()); // sets calendar time/date
         cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
         order.setPickUpTime(cal.getTime());
         order.setReadyTime(cal.getTime());
+        Cook theCook = cookService.getCookById(order.getCookId()).orElse(null);
+        order.setCookDisplayName(theCook.getDisplayName());
         orderService.postOrder(order);
 
         map.put("success", "true");
-        return map;
+        return order;
     }
 
 }

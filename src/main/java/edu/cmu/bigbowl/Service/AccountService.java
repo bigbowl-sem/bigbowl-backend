@@ -67,6 +67,10 @@ public class AccountService {
         return accountDao.findById(id);
     }
 
+    public Optional<Account> getAccountByEaterId(String id) {
+        return accountDao.findByEaterId(id);
+    }
+
     // Update
     public Optional<Account> updateAccount(Account account) {
         if (account.getAccountId() != null) {
@@ -94,12 +98,21 @@ public class AccountService {
         if (account.getPhone() != null) {
             optAccount.ifPresent(theAccount -> theAccount.setPhone(account.getPhone()));
         }
-        if (account.getEater() != null) {
-            optAccount.ifPresent(theAccount -> theAccount.setEater(account.getEater()));
+        if (account.getIsEater() != null) {
+            optAccount.ifPresent(theAccount -> theAccount.setIsEater(account.getIsEater()));
         }
-        if (account.getCook() != null) {
-            optAccount.ifPresent(theAccount -> theAccount.setCook(account.getCook()));
+        if (account.getIsCook() != null) {
+            optAccount.ifPresent(theAccount -> theAccount.setIsCook(account.getIsCook()));
         }
+
+        if(account.getCookId() != null) {
+            optAccount.ifPresent(theAccount -> theAccount.setCookId(account.getCookId()));
+        }
+
+        if(account.getEaterId() != null) {
+            optAccount.ifPresent(theAccount -> theAccount.setEaterId(account.getEaterId()));
+        }
+
         optAccount.ifPresent(theAccount -> accountDao.save(theAccount));
         return optAccount;
     }

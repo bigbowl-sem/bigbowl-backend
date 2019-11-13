@@ -64,6 +64,21 @@ public class OrderController {
         return orderService.updateOrderById(id, order).orElse(null);
     }
 
+    @RequestMapping(value = "/cookId/{cookId}/{confirmed}", method = RequestMethod.GET)
+    public List<Order> getOrdersConfirmedByCook(@PathVariable("confirmed") boolean confirmed, @PathVariable("cookId") String id) {
+        return orderService.getOrderByCookConfirmation(id, confirmed);
+    }
+
+    @RequestMapping(value="/cookId/{cookId}/confirm/{orderId}", method = RequestMethod.POST)
+    public List<Order> orderConfirmedByCook(@PathVariable("cookId") String cookId, @PathVariable("orderId") String orderId) {
+        Order theOrder = orderService.getOrderById(orderId).orElse(null);
+        if(theOrder != null){
+            theOrder.setCookConfirmed(true);
+            orderService.updateOrderById(orderId, theOrder);
+        }
+        return orderService.getOrderByCookConfirmation(cookId, false);
+    }
+
     // POST
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Order insertOrder(@RequestBody Order order) {
