@@ -67,6 +67,10 @@ public class AccountService {
         return accountDao.findById(id);
     }
 
+    public Optional<Account> getAccountByEaterId(String id) {
+        return accountDao.findByEaterId(id);
+    }
+
     // Update
     public Optional<Account> updateAccount(Account account) {
         if (account.getAccountId() != null) {

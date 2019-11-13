@@ -132,7 +132,7 @@ public class MenuController {
     }
 
     @RequestMapping(path = "/item", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Menu insertItemIntoMenu(@RequestBody AddItemToMenuRequest request) {
+    public List<Item> insertItemIntoMenu(@RequestBody AddItemToMenuRequest request) {
         String itemId = new ObjectId().toString();
         Item newItem = new Item(itemId, request.getName(),
                 request.getDescription(), request.getQuantity(),
