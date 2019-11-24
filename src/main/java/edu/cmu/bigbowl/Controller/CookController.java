@@ -15,6 +15,33 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
+class ImageRequestBody {
+    private String cookId;
+    private String imgurUrl;
+
+    public ImageRequestBody(String cookId, String imgurUrl) {
+        this.cookId = cookId;
+        this.imgurUrl = imgurUrl;
+    }
+
+    public String getCookId() {
+        return cookId;
+    }
+
+    public void setCookId(String cookId) {
+        this.cookId = cookId;
+    }
+
+    public String getImgurUrl() {
+        return imgurUrl;
+    }
+
+    public void setImgurUrl(String imgurUrl) {
+        this.imgurUrl = imgurUrl;
+    }
+}
+
 @RestController
 @RequestMapping("/cook")
 public class CookController {
@@ -121,6 +148,12 @@ public class CookController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cook insertCook(@RequestBody Cook cook) {
         return cookService.postCook(cook);
+    }
+
+
+    @RequestMapping(path = "/addImage", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Cook addCookPhoto(@RequestBody ImageRequestBody body) {
+        return cookService.addImage(body.getCookId(), body.getImgurUrl());
     }
 
     @RequestMapping(value = "/fake", method = RequestMethod.POST)

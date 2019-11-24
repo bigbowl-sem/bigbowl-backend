@@ -15,7 +15,9 @@ import org.springframework.data.geo.Distance;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static java.lang.Math.abs;
 
@@ -157,6 +159,16 @@ public class CookService {
 
     public List<Cook> getCookByPoint(Point point, Distance distance, String cuisine, Double pMin, Double pMax, Double rMin, Double rMax) {
         return cookDao.findByLocationNearAndCuisineContainsAndAvgPriceBetweenAndRatingBetween(point, distance, cuisine, pMin, pMax, rMin, rMax);
+    }
+
+    public Cook addImage(String cookId, String url) {
+        Cook theCook = this.getCookById(cookId).orElse(null);
+        if(theCook != null) {
+            theCook.setImgurUrl(url);
+            return this.postCook(theCook);
+
+        }
+        return null;
     }
 
     // Update

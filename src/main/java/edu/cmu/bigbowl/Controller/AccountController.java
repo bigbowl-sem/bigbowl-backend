@@ -105,8 +105,8 @@ public class AccountController {
         String id = new ObjectId().toString();
         Cook theCook = new Cook(id, "mypermit",
                 "17 Mission Street", "", "San Francisco",
-                "CA", 94043, "USA", null, 0.0, false,
-                "I'm a cook, man.", 37.794565, -122.40783, id, account.getFirstName(), null);
+                "CA", 94043, "USA", null, 3.0, false,
+                "I'm a cook, man.", 37.794565, -122.40783, id, account.getFirstName(), "");
         cookService.postCook(theCook);
         Menu menu = new Menu(
                 id, new Date(), false, null, false, new ArrayList()

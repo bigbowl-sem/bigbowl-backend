@@ -86,6 +86,7 @@ public class Cook {
         this.avgPrice = 0.0;
         this.totalRated = 0;
         this.imgurUrl = imgurUrl;
+        this.cuisine = "Thai";
     }
 
     public String getCookId() {
