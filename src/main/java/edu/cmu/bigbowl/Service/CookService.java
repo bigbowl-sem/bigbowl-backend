@@ -41,10 +41,10 @@ public class CookService {
     public void postFakeCook() throws IOException {
         Integer numOfCook = 50;
         Double latMin, latMax, lngMin, lngMax, ratingMin, ratingMax;
-        latMin = 37.775902;
-        latMax = 37.798165;
-        lngMin = -122.414496;
-        lngMax = -122.401194;
+        latMin = 37.376877;
+        latMax = 37.427483;
+        lngMin = -122.075116;
+        lngMax = -122.085842;
         ratingMin = 0.0;
         ratingMax = 5.0;
         /*
