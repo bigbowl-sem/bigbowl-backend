@@ -48,6 +48,7 @@ public class WebExceptionHandler {
 
     /**
      * Put error msg to request
+     *
      * @param code
      * @param message
      * @param httpStatus

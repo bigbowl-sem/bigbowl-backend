@@ -43,7 +43,7 @@ public class AccountController {
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Account deleteAccount(@RequestBody Account account) {
         return accountService.deleteAccount(account).orElse(null);
     }
@@ -74,11 +74,11 @@ public class AccountController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Account insertAccount(@RequestBody Account account) throws IOException {
         Account existingAccount = accountService.getAccountById(account.getAccountId()).orElse(null);
-        if(existingAccount != null) {
-            if(existingAccount.getIsEater() != account.getIsEater()) {
+        if (existingAccount != null) {
+            if (existingAccount.getIsEater() != account.getIsEater()) {
                 account.setIsEater(true);
                 account.setEaterId(createEater());
-            } else if (existingAccount.getIsCook() != account.getIsCook()){
+            } else if (existingAccount.getIsCook() != account.getIsCook()) {
                 account.setIsCook(true);
                 account.setCookId(createCook(account));
             }
@@ -86,7 +86,7 @@ public class AccountController {
             return accountService.getAccountById(account.getAccountId()).orElse(null);
         }
 
-        if(account.getIsCook()) {
+        if (account.getIsCook()) {
             account.setCookId(createCook(account));
         } else if (account.getIsEater()) {
             account.setEaterId(createEater());

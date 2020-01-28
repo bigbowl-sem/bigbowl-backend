@@ -79,8 +79,7 @@ public class AccountService {
     public Optional<Account> updateAccount(Account account) {
         if (account.getAccountId() != null) {
             return updateAccountById(account.getAccountId(), account);
-        }
-        else{
+        } else {
             return null;
         }
     }
@@ -109,11 +108,11 @@ public class AccountService {
             optAccount.ifPresent(theAccount -> theAccount.setIsCook(account.getIsCook()));
         }
 
-        if(account.getCookId() != null) {
+        if (account.getCookId() != null) {
             optAccount.ifPresent(theAccount -> theAccount.setCookId(account.getCookId()));
         }
 
-        if(account.getEaterId() != null) {
+        if (account.getEaterId() != null) {
             optAccount.ifPresent(theAccount -> theAccount.setEaterId(account.getEaterId()));
         }
 

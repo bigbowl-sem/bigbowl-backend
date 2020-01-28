@@ -29,7 +29,7 @@ public class EaterController {
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Eater deleteEater(@RequestBody Eater eater) {
         return eaterService.deleteEater(eater).orElse(null);
     }

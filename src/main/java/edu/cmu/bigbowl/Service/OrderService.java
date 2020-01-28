@@ -45,8 +45,7 @@ public class OrderService {
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
             return updateOrderById(order.getOrderId(), order);
-        }
-        else{
+        } else {
             return null;
         }
     }
@@ -54,9 +53,9 @@ public class OrderService {
     public List<Order> getOrderByCookConfirmation(String cookId, boolean isConfirmedByCook) {
         List<Order> orders = this.getOrderByCookId(cookId);
         List<Order> toReturn = new ArrayList();
-        if(orders != null) {
-            for(Order order: orders) {
-                if(order.isCookConfirmed() == isConfirmedByCook) {
+        if (orders != null) {
+            for (Order order : orders) {
+                if (order.isCookConfirmed() == isConfirmedByCook) {
                     toReturn.add(order);
                 }
             }

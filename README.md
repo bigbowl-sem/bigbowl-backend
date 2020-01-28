@@ -2,6 +2,8 @@
 
 ## Setup with Intellij
 need to setup JDK before you can run it locally  
+use `maven -> Lifecycle -> package` to build the jar  
+it should be in `proj/target` named `bigbowl-0.0.1-SNAPSHOT.jar`
 
 ## Deploy to AWS
 make sure the JDK on local and AWS are the same version

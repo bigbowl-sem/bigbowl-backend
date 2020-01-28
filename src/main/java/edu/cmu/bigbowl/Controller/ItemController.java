@@ -34,7 +34,7 @@ public class ItemController {
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Item deleteItem(@RequestBody Item item) {
         return itemService.deleteItem(item).orElse(null);
     }

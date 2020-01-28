@@ -97,7 +97,7 @@ public class CookController {
             @RequestParam(value = "pMax", required = false) String pMax,
             @RequestParam(value = "rMin", required = false) String rMin,
             @RequestParam(value = "rMax", required = false) String rMax
-            ) {
+    ) {
         Point point = new Point(lng, lat);
         Distance distance = new Distance(radius, Metrics.MILES);
         List<Cook> cooks;
@@ -108,17 +108,17 @@ public class CookController {
         if (pMin == null && rMin == null) {
             return cookService.getCookByPoint(point, distance, cuisine);
         }
-        if (pMin != null && rMin == null){
+        if (pMin != null && rMin == null) {
             return cookService.getCookByPointWithPrice(point, distance, cuisine, Double.parseDouble(pMin), Double.parseDouble(pMax));
         }
-        if (pMin == null && rMin != null){
+        if (pMin == null && rMin != null) {
             return cookService.getCookByPointWithRating(point, distance, cuisine, Double.parseDouble(rMin), Double.parseDouble(rMax));
         }
         return cookService.getCookByPoint(point, distance, cuisine, Double.parseDouble(pMin), Double.parseDouble(pMax), Double.parseDouble(rMin), Double.parseDouble(rMax));
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cook deleteCook(@RequestBody Cook cook) {
         return cookService.deleteCook(cook).orElse(null);
     }

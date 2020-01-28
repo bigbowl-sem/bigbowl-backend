@@ -27,7 +27,7 @@ public class CheckoutItemController {
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public CheckoutItem deleteCheckoutItem(@RequestBody CheckoutItem checkoutItem) {
         return checkoutItemService.deleteCheckoutItem(checkoutItem).orElse(null);
     }

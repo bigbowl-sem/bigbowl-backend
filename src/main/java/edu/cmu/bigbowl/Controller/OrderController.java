@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Order deleteOrder(@RequestBody Order order) {
         return orderService.deleteOrder(order).orElse(null);
     }
@@ -69,10 +69,10 @@ public class OrderController {
         return orderService.getOrderByCookConfirmation(id, confirmed);
     }
 
-    @RequestMapping(value="/cookId/{cookId}/confirm/{orderId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/cookId/{cookId}/confirm/{orderId}", method = RequestMethod.POST)
     public List<Order> orderConfirmedByCook(@PathVariable("cookId") String cookId, @PathVariable("orderId") String orderId) {
         Order theOrder = orderService.getOrderById(orderId).orElse(null);
-        if(theOrder != null){
+        if (theOrder != null) {
             theOrder.setCookConfirmed(true);
             orderService.updateOrderById(orderId, theOrder);
         }

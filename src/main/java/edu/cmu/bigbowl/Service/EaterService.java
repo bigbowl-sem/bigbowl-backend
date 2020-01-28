@@ -47,8 +47,7 @@ public class EaterService {
         imgurUrls.add("https://i.imgur.com/epDkkj1.jpg");
 
 
-        for (Integer cnt = 0; cnt < numOfCook; cnt += 1)
-        {
+        for (Integer cnt = 0; cnt < numOfCook; cnt += 1) {
             Random r = new Random();
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
             Integer imgurUrlNum = abs(r.nextInt()) % imgurUrls.size();
@@ -76,8 +75,7 @@ public class EaterService {
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
             return updateEaterById(eater.getEaterId(), eater);
-        }
-        else{
+        } else {
             return null;
         }
     }

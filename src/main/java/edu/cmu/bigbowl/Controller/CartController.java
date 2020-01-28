@@ -33,7 +33,7 @@ public class CartController {
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cart deleteCart(@RequestBody Cart cart) {
         return cartService.deleteCart(cart).orElse(null);
     }
@@ -63,23 +63,23 @@ public class CartController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Cart insertCart(@RequestBody Cart cart) {
         Cart existingCart = cartService.getCartById(cart.getCartId()).orElse(null);
-        if(existingCart == null) {
+        if (existingCart == null) {
             return cartService.postCart(cart);
         }
 
         return cartService.updateCartById(cart.getCartId(), cart).get();
     }
 
-    @RequestMapping(path="/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean addItemToCart(@RequestParam(value = "cartId") String cartId, @RequestParam(value = "itemId") String itemId) {
         Item item = itemService.getItemById(itemId).orElse(null);
-        if(item != null) {
+        if (item != null) {
             cartService.addItemToCart(cartId, item);
         }
         return true;
     }
 
-    @RequestMapping(path="/remove", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/remove", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean removeItemFromCart(@RequestParam(value = "cartId") String cartId, @RequestParam(value = "itemId") String itemId) {
         cartService.removeItemFromCart(cartId, itemId);
         return true;

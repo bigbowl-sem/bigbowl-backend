@@ -32,7 +32,7 @@ public class ItemService {
         return itemDao.save(item);
     }
 
-    public void postFakeItem(){
+    public void postFakeItem() {
         Integer numOfAccount = 50;
         Double pMin = 1.0;
         Double pMax = 5.0;
@@ -85,7 +85,7 @@ public class ItemService {
             Optional<Cook> optCook = cookDao.findById("Fake" + cnt);
             optCook.ifPresent(theCook -> theCook.setCuisine(cuisines.get(cuisineNum)));
             // update cook avgPrice and TotalItem
-            optCook.ifPresent(theCook -> theCook.setAvgPrice( ((theCook.getAvgPrice() * theCook.getTotalItem()) + pValue) / (theCook.getTotalItem() + 1)) );
+            optCook.ifPresent(theCook -> theCook.setAvgPrice(((theCook.getAvgPrice() * theCook.getTotalItem()) + pValue) / (theCook.getTotalItem() + 1)));
             optCook.ifPresent(theCook -> theCook.setTotalItem(theCook.getTotalItem() + 1));
             optCook.ifPresent(theCook -> cookDao.save(theCook));
             // update menu items
@@ -93,10 +93,11 @@ public class ItemService {
             optMenu.ifPresent(theMenu -> theMenu.addItemId(itemId));
             optMenu.ifPresent(theMenu -> menuDao.save(theMenu));
 
-            Item item = new Item(itemId, names.get(itemNum),"Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt, imgurUrls.get(itemNum));
+            Item item = new Item(itemId, names.get(itemNum), "Nice and Tasty", r.nextInt() % 10, pValue, cuisines.get(cuisineNum), "Fake" + cnt, imgurUrls.get(itemNum));
             itemDao.save(item);
         }
     }
+
     // Read
     public Collection<Item> getAllItems() {
         return itemDao.findAll();
@@ -121,8 +122,7 @@ public class ItemService {
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
             return updateItemById(item.getItemId(), item);
-        }
-        else{
+        } else {
             return null;
         }
     }

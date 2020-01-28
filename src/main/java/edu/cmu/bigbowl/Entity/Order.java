@@ -62,6 +62,7 @@ public class Order {
         this.pickUpContact = pickUpContact;
         this.pickUpTime = pickUpTime;
     }
+
     public String getOrderId() {
         return orderId;
     }

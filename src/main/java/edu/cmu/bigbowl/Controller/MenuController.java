@@ -109,7 +109,7 @@ public class MenuController {
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Menu deleteMenu(@RequestBody Menu menu) {
         return menuService.deleteMenu(menu).orElse(null);
     }

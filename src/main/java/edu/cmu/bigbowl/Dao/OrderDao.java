@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface OrderDao extends MongoRepository<Order, String> {
     List<Order> findOrdersByCookId(String cookId);
+
     List<Order> findOrdersByEaterId(String eaterId);
 }

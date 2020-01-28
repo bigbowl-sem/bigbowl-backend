@@ -38,8 +38,7 @@ public class CartService {
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
             return updateCartById(cart.getCartId(), cart);
-        }
-        else{
+        } else {
             return null;
         }
     }
@@ -51,11 +50,10 @@ public class CartService {
             ArrayList<Item> theItems = new ArrayList(cart.getCheckoutItems());
             theItems.add(item);
 
-            cart.setCheckoutItems((List)theItems);
+            cart.setCheckoutItems((List) theItems);
 
             return updateCartById(cart.getCartId(), cart);
-        }
-        else{
+        } else {
             return null;
         }
     }
@@ -65,18 +63,17 @@ public class CartService {
         if (cart != null) {
 
             ArrayList<Item> theItems = new ArrayList(cart.getCheckoutItems());
-            for(Item item: theItems) {
-                if(item.getItemId().equals(itemId)) {
+            for (Item item : theItems) {
+                if (item.getItemId().equals(itemId)) {
                     theItems.remove(item);
                     break;
                 }
             }
 
-            cart.setCheckoutItems((List)theItems);
+            cart.setCheckoutItems((List) theItems);
 
             return updateCartById(cart.getCartId(), cart);
-        }
-        else{
+        } else {
             return null;
         }
     }

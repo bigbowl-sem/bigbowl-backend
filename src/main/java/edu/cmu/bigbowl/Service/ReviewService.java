@@ -30,13 +30,12 @@ public class ReviewService {
         Integer numOfReview = 50;
         Double ratingMin = 2.0;
         Double ratingMax = 5.0;
-        for (Integer cnt = 0; cnt < numOfReview; cnt += 1)
-        {
+        for (Integer cnt = 0; cnt < numOfReview; cnt += 1) {
             Double ratingValue = ratingMin + (ratingMax - ratingMin) * r.nextDouble();
-            Review review = new Review( "Fake" + cnt, null, "Fake" + (cnt + 1), "Fake" + cnt, "Fake" + cnt + " is rated " + ratingValue, ratingValue);
+            Review review = new Review("Fake" + cnt, null, "Fake" + (cnt + 1), "Fake" + cnt, "Fake" + cnt + " is rated " + ratingValue, ratingValue);
             // update cook rating and totalRated
             Optional<Cook> optCook = cookDao.findById("Fake" + cnt);
-            optCook.ifPresent(theCook -> theCook.setRating( ((theCook.getRating() * theCook.getTotalRated()) + ratingValue) / (theCook.getTotalRated() + 1)) );
+            optCook.ifPresent(theCook -> theCook.setRating(((theCook.getRating() * theCook.getTotalRated()) + ratingValue) / (theCook.getTotalRated() + 1)));
             optCook.ifPresent(theCook -> theCook.setTotalRated(theCook.getTotalRated() + 1));
             optCook.ifPresent(theCook -> cookDao.save(theCook));
             reviewDao.save(review);
@@ -70,8 +69,7 @@ public class ReviewService {
     public Optional<Review> updateReviews(Review review) {
         if (review.getReviewId() != null) {
             return updateReviewById(review.getReviewId(), review);
-        }
-        else{
+        } else {
             return null;
         }
     }

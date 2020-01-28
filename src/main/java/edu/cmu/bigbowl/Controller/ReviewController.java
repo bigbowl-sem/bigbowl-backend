@@ -41,13 +41,14 @@ public class ReviewController {
     public List<Review> getReviewByOrderId(@PathVariable("orderId") String orderId) {
         return reviewService.getReviewByOrderId(orderId);
     }
+
     @RequestMapping(value = "cookId/{cookId}", method = RequestMethod.GET)
     public List<Review> getReviewByCookId(@PathVariable("cookId") String cookId) {
         return reviewService.getReviewByCookId(cookId);
     }
 
     // DELETE
-    @RequestMapping(method = RequestMethod.DELETE,  consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Review deleteReview(@RequestBody Review review) {
         return reviewService.deleteReview(review).orElse(null);
     }
@@ -75,8 +76,7 @@ public class ReviewController {
 
     // POST
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Review insertReview(@RequestBody Review review)
-    {
+    public Review insertReview(@RequestBody Review review) {
         Order theOrder = orderService.getOrderById(review.getOrderId()).orElse(null);
         theOrder.setEaterConfirmed(true);
         orderService.updateOrderById(review.getOrderId(), theOrder);

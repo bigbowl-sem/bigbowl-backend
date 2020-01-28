@@ -35,8 +35,7 @@ public class CheckoutItemService {
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
             return updateCheckoutItemById(checkoutItem.getCheckoutItemId(), checkoutItem);
-        }
-        else{
+        } else {
             return null;
         }
     }

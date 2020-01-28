@@ -8,16 +8,13 @@ import edu.cmu.bigbowl.Entity.Account;
 import edu.cmu.bigbowl.Entity.Cook;
 import edu.cmu.bigbowl.Entity.Item;
 import edu.cmu.bigbowl.Entity.Menu;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.Point;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.util.logging.Logger;
 
 import static java.lang.Math.abs;
 
@@ -103,8 +100,7 @@ public class CookService {
         firstNameMale.add("Sam");
         firstNameMale.add("Ivan");
 
-        for (Integer cnt = 0; cnt < numOfCook; cnt += 1)
-        {
+        for (Integer cnt = 0; cnt < numOfCook; cnt += 1) {
             Random r = new Random();
             Cook cook = null;
             Double latValue = latMin + (latMax - latMin) * r.nextDouble();
@@ -113,15 +109,12 @@ public class CookService {
             Integer imgurUrlNum = 0;
             Account account = accountDao.findById("Fake" + cnt).get();
             String displayName = account.getFirstName() + " " + account.getLastName();
-            if (firstNameFemale.contains(account.getFirstName()))
-            {
+            if (firstNameFemale.contains(account.getFirstName())) {
                 imgurUrlNum = abs(r.nextInt()) % imgurUrlsFemale.size();
-                cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, imgurUrlsFemale.get(imgurUrlNum));
-            }
-            else if (firstNameMale.contains(account.getFirstName()))
-            {
+                cook = new Cook("Fake" + cnt, null, null, null, null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, imgurUrlsFemale.get(imgurUrlNum));
+            } else if (firstNameMale.contains(account.getFirstName())) {
                 imgurUrlNum = abs(r.nextInt()) % imgurUrlsMale.size();
-                cook = new Cook("Fake" + cnt, null, null, null,  null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, imgurUrlsMale.get(imgurUrlNum));
+                cook = new Cook("Fake" + cnt, null, null, null, null, null, 0, null, null, ratingValue, null, null, latValue, lngValue, "Fake" + cnt, displayName, imgurUrlsMale.get(imgurUrlNum));
             }
 
             Menu menu = new Menu("Fake" + cnt, new Date(), Boolean.TRUE, null, Boolean.TRUE, new ArrayList<>());
@@ -163,7 +156,7 @@ public class CookService {
 
     public Cook addImage(String cookId, String url) {
         Cook theCook = this.getCookById(cookId).orElse(null);
-        if(theCook != null) {
+        if (theCook != null) {
             theCook.setImgurUrl(url);
             return this.postCook(theCook);
 
@@ -178,8 +171,7 @@ public class CookService {
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
             return updateCookById(cook.getCookId(), cook);
-        }
-        else{
+        } else {
             return null;
         }
     }
@@ -196,7 +188,7 @@ public class CookService {
         return optCook;
     }
 
-    public void updateCooksByIdWithItem(String id){
+    public void updateCooksByIdWithItem(String id) {
         Optional<Cook> optCook = cookDao.findById(id);
         List<Item> items = itemDao.findItemsByCookId(id);
         if (items.size() != 0) {

@@ -40,13 +40,13 @@ public class PaymentController {
 
     @RequestMapping(method = RequestMethod.POST)
     @JsonSerialize
-    public Map<String, String> createIntent(@RequestBody String cartId)  {
+    public Map<String, String> createIntent(@RequestBody String cartId) {
 
         Stripe.apiKey = "sk_test_PSu1SdTnTDpUwVotxIpNqzXW00Tz6kX2nV";
         Cart theCart = cartService.getCartById(cartId).orElse(null);
         HashMap<String, String> map = new HashMap<>();
 
-        if(theCart == null) {
+        if (theCart == null) {
             map.put("error with cart", "true");
         }
 //        PaymentIntentCreateParams createParams = new PaymentIntentCreateParams.Builder()
@@ -77,7 +77,7 @@ public class PaymentController {
         //need some security here, but whatever
 
         Account account = accountService.getAccountByEaterId(order.getEaterId()).orElse(null);
-        if(account == null) {
+        if (account == null) {
             map.put("success", "false");
             return null;
         }

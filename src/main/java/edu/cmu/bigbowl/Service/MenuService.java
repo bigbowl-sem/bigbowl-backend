@@ -20,7 +20,7 @@ public class MenuService {
         return menuDao.save(menu);
     }
 
-    public void postFakeMenu(){
+    public void postFakeMenu() {
         Integer numOfAccount = 50;
         ArrayList<String> cuisines = new ArrayList<>();
         cuisines.add("Thai");
@@ -56,8 +56,7 @@ public class MenuService {
             // Right now it will save with the latest JSON which it's Id matched. But won't update
             // accordingly.
             return updateMenuById(menu.getCookId(), menu);
-        }
-        else{
+        } else {
             return null;
         }
     }
